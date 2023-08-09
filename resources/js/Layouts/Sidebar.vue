@@ -122,7 +122,7 @@ const icons = {
       
               <li v-if="$page.props.jetstream.hasApiFeatures">
                 <DropdownLink :href="route('api-tokens.index')">Data Unit Kerja</DropdownLink>
-              </li> git 
+              </li>
       
               <li class="border-t border-gray-200" />
       
