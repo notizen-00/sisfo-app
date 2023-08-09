@@ -120,8 +120,8 @@ const icons = {
                 <DropdownLink :href="route('profile.show')">Data IKU</DropdownLink>
               </li>
       
-              <li v-if="$page.props.jetstream.hasApiFeatures">
-                <DropdownLink :href="route('api-tokens.index')">Data Unit Kerja</DropdownLink>
+              <li >
+                <DropdownLink :href="route('dashboard')">Data Unit Kerja</DropdownLink>
               </li>
       
               <li class="border-t border-gray-200" />

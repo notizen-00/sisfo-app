@@ -32,7 +32,7 @@ Route::middleware([
     })->name('dashboard');
 
     Route::resource('/pengajuan','App\Http\Controllers\PengajuanController');
-
+    Route::resource('/revisi','App\Http\Controllers\RevisiController');
     Route::get('/menu',function(){
 
         return Inertia::render('Menu');
