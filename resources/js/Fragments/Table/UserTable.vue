@@ -26,6 +26,7 @@
         label: "ID",
         field: "id",
         width: "3%",
+        HeaderClasses:["bg-slate-400"],
         sortable: true,
         isKey: true,
       },
@@ -44,15 +45,15 @@
       {
         label: "Action",
         headerClasses: ["bg-gold"],
-        columnClasses: ["bg-gray"],
-        columnStyles: { background: "gray" },
+        columnClasses: ["bg-slate-100"],
+        columnStyles: {  },
         field: "quick",
         width: "10%",
         display: function (row) {
           return (
             '<button type="button" data-id="' +
             row.id +
-            '" class="is-rows-el quick-btn">Button</button>'
+            '" class="inline-flex items-center px-4 py-2 bg-blue-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-400 focus:bg-blue-400 active:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1 transition ease-in-out duration-150">Button</button>'
           );
         },
       },
