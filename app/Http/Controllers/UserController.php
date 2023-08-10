@@ -12,7 +12,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::get();
+        $users = User::with('roles')->get();
+        // dd(auth()->user()->roles->pluck('name')[0]);
         return Inertia::render('User/index',[
                 'users'=>$users
         ]);

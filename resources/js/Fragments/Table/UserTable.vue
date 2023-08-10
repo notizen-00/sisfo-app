@@ -43,6 +43,21 @@
         sortable: true,
       },
       {
+        label: "Role",
+        field: "role",
+        width: "15%",
+        sortable: true,
+        display: function (row) {
+            return (
+              '<a href="#" data-id="' +
+              row.id +
+              '" class="is-rows-el name-btn">' +
+              row.roles[0].name +
+              "</a>"
+            );
+          },
+      },
+      {
         label: "Action",
         headerClasses: ["bg-gold"],
         columnClasses: ["bg-slate-100"],

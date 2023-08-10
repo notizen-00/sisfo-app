@@ -1,6 +1,6 @@
 <script setup>
 import { ref,computed } from 'vue';
-import { Head, Link, router } from '@inertiajs/vue3';
+import { Head, Link, router} from '@inertiajs/vue3';
 import ApplicationMark from '@/Components/ApplicationMark.vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
@@ -12,6 +12,8 @@ import { useStore } from 'vuex';
 defineProps({
     title: String,
 });
+
+
 
 const store = useStore(); // Menggunakan store Vuex di dalam komponen
 const isSidebarCollapsed = computed(() => store.state.isSidebarCollapsed);
@@ -121,7 +123,7 @@ const icons = {
                                 <span v-else class="inline-flex rounded-md">
                                     <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition ease-in-out duration-150">
                                         {{ $page.props.auth.user.name }}
-    
+                                    
                                       
                                     </button>
                                 </span>

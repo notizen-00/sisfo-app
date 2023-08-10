@@ -4,7 +4,8 @@ import { createStore } from 'vuex';
 const store = createStore({
   state() {
     return {
-      isSidebarCollapsed: false
+      isSidebarCollapsed: false,
+      
       // ... tambahkan state lainnya jika diperlukan
     };
   },
