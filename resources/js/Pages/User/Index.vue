@@ -2,16 +2,18 @@
 import AppLayout from '@/Layouts/AppLayout.vue';
 import Welcome from '@/Components/Welcome.vue';
 import Banner from '@/Components/Banner.vue';
-import Table from '@/Components/Table.vue';
-import { ref } from 'vue'
+import UserTable from '@/Fragments/Table/UserTable.vue';
 
-const searchQuery = ref('')
+import { ref ,defineProps} from 'vue';
+// Sesuaikan path dengan lokasi komponen UserTable 
 const props = defineProps({
-    users: Array,
+  users: Array // Sesuaikan dengan tipe data yang diterima dari properti "users"
 });
-console.log(props.users);
-const gridColumns = ['name', 'email','created_at']
-const users = props.users || []
+const userData = ref(props.users);
+
+const components = {
+  UserTable,
+};
 
 
 
@@ -27,17 +29,7 @@ const users = props.users || []
       
         <div class="py-12 w-full bg-white mt-4">
             <div class=" mx-auto sm:px-6 lg:px-8">
-                
-                <form id="search">
-                    Search <input name="query" class="text-sm border-2 py-1 rounded-md border-blue-400 mb-2" v-model="searchQuery">
-                  </form>
-                  <Table
-                    :data="users"
-                    :columns="gridColumns"
-                    :filter-key="searchQuery">
-                </Table>
-               
-                  
+                <UserTable :initialData="userData" /> 
             </div>
         </div>
     </AppLayout>
