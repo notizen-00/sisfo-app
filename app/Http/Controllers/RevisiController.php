@@ -11,7 +11,7 @@ class RevisiController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Revisi');
+        return Inertia::render('Revisi/index');
     }
 
     /**

@@ -69,21 +69,21 @@ const icons = {
          </li>
 
          <li>
-            <NavLinkSidebar :href="route('pengajuan.index')" :active="route().current('pengajuan.index')">
+            <NavLinkSidebar :href="route('revisi.index')" :active="route().current('revisi.index')">
              <span class="h-6 w-8 text-slate-400"><font-awesome-icon :icon="icons.clipboard"/></span>
                  Data Revisi
             </NavLinkSidebar>
          </li>
          <li>
             
-          <NavLinkSidebar :href="route('pengajuan.index')" :active="route().current('pengajuan.index')">
+          <NavLinkSidebar :href="route('claim.index')" :active="route().current('claim.index')">
            <span class="h-6 w-8 text-slate-400"><font-awesome-icon :icon="icons.money"/></span>
                Data Claim
           </NavLinkSidebar>
        </li>
          <li>
             
-            <NavLinkSidebar :href="route('pengajuan.index')" :active="route().current('pengajuan.index')">
+            <NavLinkSidebar :href="route('rekapitulasi.index')" :active="route().current('rekapitulasi.index')">
              <span class="h-6 w-8 text-slate-400"><font-awesome-icon :icon="icons.layergroup"/></span>
                  Rekapitulasi
             </NavLinkSidebar>
@@ -91,7 +91,7 @@ const icons = {
          </li>
          <li>
             
-            <NavLinkSidebar :href="route('pengajuan.index')" :active="route().current('pengajuan.index')">
+            <NavLinkSidebar :href="route('user.index')" :active="route().current('user.index')">
              <span class="h-6 w-8 text-slate-400"><font-awesome-icon :icon="icons.usergear"/></span>
                  User Management
             </NavLinkSidebar>
@@ -99,7 +99,7 @@ const icons = {
       
          <li>
             
-            <NavLinkSidebar :href="route('pengajuan.index')" :active="route().current('pengajuan.index')">
+            <NavLinkSidebar :href="route('pengaturan.index')" :active="route().current('pengaturan.index')">
              <span class="h-6 w-8 text-slate-400"><font-awesome-icon :icon="icons.cog"/></span>
                  Pengaturan Aplikasi
             </NavLinkSidebar>

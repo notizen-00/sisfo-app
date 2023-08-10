@@ -11,8 +11,8 @@ class RekapitulasiController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Rekapitulasi');
-        
+        return Inertia::render('Rekapitulasi/index');
+
     }
 
     /**

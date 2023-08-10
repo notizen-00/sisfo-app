@@ -36,7 +36,8 @@ Route::middleware([
     Route::resource('/pengaturan','App\Http\Controllers\PengaturanController');
     Route::resource('/rekapitulasi','App\Http\Controllers\RekapitulasiController');
     Route::resource('/user','App\Http\Controllers\UserController');
-    
+    Route::resource('/claim','App\Http\Controllers\ClaimController');
+
     Route::get('/menu',function(){
 
         return Inertia::render('Menu');

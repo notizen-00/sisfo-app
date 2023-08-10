@@ -6,15 +6,14 @@ import Table from '@/Components/Table.vue';
 import { ref } from 'vue'
 
 const searchQuery = ref('')
-const gridColumns = ['name', 'power']
-const gridData = [
-  { name: 'Chuck Norris', power: Infinity },
-  { name: 'Bruce Lee', power: 9000 },
-  { name: 'Jackie Chan', power: 7000 },
-  { name: 'Jet Li', power: 8000 }
-]
+const props = defineProps({
+    users: Array,
+});
+console.log(props.users);
+const gridColumns = ['name', 'email','created_at']
+const users = props.users || []
 
- 
+
 
 </script>
 
@@ -22,10 +21,10 @@ const gridData = [
     <AppLayout title="Dashboard">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Dashboard Aplikasi
+                Data User Management
             </h2>
         </template>
-
+      
         <div class="py-12 w-full bg-white mt-4">
             <div class=" mx-auto sm:px-6 lg:px-8">
                 
@@ -33,7 +32,7 @@ const gridData = [
                     Search <input name="query" class="text-sm border-2 py-1 rounded-md border-blue-400 mb-2" v-model="searchQuery">
                   </form>
                   <Table
-                    :data="gridData"
+                    :data="users"
                     :columns="gridColumns"
                     :filter-key="searchQuery">
                 </Table>

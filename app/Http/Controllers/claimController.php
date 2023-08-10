@@ -4,15 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-
-class PengaturanController extends Controller
+class claimController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Inertia::render('Pengaturan/index');
+        return Inertia::render('Claim/index');
     }
 
     /**
