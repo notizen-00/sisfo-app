@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Inertia\Inertia;
 class RevisiController extends Controller
 {
     /**
@@ -11,7 +11,7 @@ class RevisiController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('Revisi');
     }
 
     /**

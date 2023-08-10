@@ -11,7 +11,7 @@ class PengajuanController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Pengajuan');
+        return Inertia::render('Pengajuan/index');
     }
 
     /**

@@ -33,6 +33,10 @@ Route::middleware([
 
     Route::resource('/pengajuan','App\Http\Controllers\PengajuanController');
     Route::resource('/revisi','App\Http\Controllers\RevisiController');
+    Route::resource('/pengaturan','App\Http\Controllers\PengaturanController');
+    Route::resource('/rekapitulasi','App\Http\Controllers\RekapitulasiController');
+    Route::resource('/user','App\Http\Controllers\UserController');
+    
     Route::get('/menu',function(){
 
         return Inertia::render('Menu');
