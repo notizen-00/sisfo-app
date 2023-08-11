@@ -12,7 +12,10 @@
   import { defineProps, defineEmits } from 'vue';
   
   const props = defineProps({
-    row: Number,
+    row: {
+    type: Number,
+    default: null, // Mengatur default value menjadi null
+  },
     type: String,
   });
 
@@ -20,7 +23,11 @@
   
   const openModal = () => {
 
-    emit('open-detail-modal', props.row,props.type);
+    if (props.row !== null) {
+    emit('open-detail-modal', props.row, props.type);
+  }else {
+    emit('open-detail-modal',props.type);
+  }
    
   };
   </script>

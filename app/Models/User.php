@@ -10,6 +10,8 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class User extends Authenticatable
 {
@@ -28,6 +30,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'no_hp',
         'password',
     ];
 
@@ -68,4 +71,18 @@ class User extends Authenticatable
         });
    
     }
+
+    public function getPermissions(User $user)
+{
+    // Mendapatkan izin melalui peran (roles) yang diberikan pada pengguna
+    $permissionsViaRoles = $user->getPermissionsViaRoles();
+
+    // Mendapatkan izin langsung yang diberikan pada pengguna tanpa melalui peran
+    $directPermissions = $user->getDirectPermissions();
+
+    // Menggabungkan hasil dari kedua metode di atas
+    $allPermissions = $permissionsViaRoles->merge($directPermissions);
+
+    return $allPermissions;
+}
 }

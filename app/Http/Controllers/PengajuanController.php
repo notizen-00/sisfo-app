@@ -13,9 +13,7 @@ class PengajuanController extends Controller
     public function index(Pengajuan $pengajuan)
     {
         return Inertia::render('Pengajuan/index',[
-
                 'pengajuan'=>$pengajuan::get()
-
         ]);
     }
 
@@ -32,7 +30,7 @@ class PengajuanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return Response()->json($request->all());
     }
 
     /**

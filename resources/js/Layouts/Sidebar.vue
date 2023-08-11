@@ -7,6 +7,8 @@ import { Head, Link, router } from '@inertiajs/vue3';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLinkSidebar from '@/Components/NavLinkSidebar.vue';
+import AuthenticationCardLogo from '@/Components/AuthenticationCardLogo.vue';
+
 const props = defineProps({
   isSidebarCollapsed: Boolean
 });
@@ -49,7 +51,8 @@ const icons = {
     >
       <!-- Sidebar Logo -->
       <div class="p-4 bg-gray-100 text-center">
-        <img src="/public/" alt="Logo" class="w-16 h-16 mx-auto">
+        <!-- <img src="/public/" alt="Logo" class="w-16 h-16 mx-auto"> -->
+        <AuthenticationCardLogo />
         <h1 class="text-xl font-semibold mt-2">Sistem Informasi</h1>
       </div>
 

@@ -11,7 +11,7 @@
   </div>
   <div class="p-6">
     <h5
-      class="mb-2 text-xl font-medium leading-tight text-neutral-800 dark:text-neutral-50">
+      class="mb-2 text-md font-medium leading-tight text-neutral-800 dark:text-neutral-50">
       <slot name="card-title"></slot>
     </h5>
     <slot name="card-body"></slot>

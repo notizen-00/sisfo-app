@@ -1,7 +1,20 @@
 <template>
-    <div style="text-align: left">
+  <div class="flex inline-block justify-between">
+
+    <div style="text-align: left" class="">
       <label>Search : </label><input class="text-sm border-2 py-1 rounded-md border-blue-400 mb-2" v-model="searchTerm" />
     </div>
+    <div style="text-align: right">
+
+      <ActionButton  @open-detail-modal="openModal" type="add" >
+        <template #icons>
+        <span class="bg-blue-500 px-4 py-2 rounded-md hover:bg-blue-700 active:bg-blue-300 text-white">Tambah <font-awesome-icon :icon="icons.plus" class="text-blue-100/50 " />  </span> 
+        </template>
+      </ActionButton>
+    </div>
+
+  </div>
+    
     <table-lite
       :is-static-mode="true"
       :is-slot-mode="true"
@@ -12,17 +25,7 @@
 
     >
     <template v-slot:status="data">
-        <ActionButton :row="data.value.id" @open-detail-modal="openModal" type="detail" >
-            <template #icons>
-             <font-awesome-icon :icon="icons.eye" size="1x"  class="text-blue-500"/>
-            </template>
-        </ActionButton>
-
-        <ActionButton :row="data.value.id" @open-detail-modal="openModal" type="edit" >
-          <template #icons>
-           <font-awesome-icon :icon="icons.edit" size="1x"  class="text-green-500 ml-2"/>
-          </template>
-      </ActionButton>
+      
     </template>
   
   </table-lite>
@@ -31,12 +34,8 @@
     
       <template #isiModal>
           
-        <CardUserDetail
-        v-if="selectedTypeModal === 'detail'"
-        />
-
-        <CardUserEdit
-        v-if="selectedTypeModal === 'edit'"
+        <CardPengajuanAdd
+        v-if="selectedTypeModal === 'add'"
         />
         
       </template>
@@ -49,17 +48,18 @@
   import TableLite from "@/Components/TableLite.vue";
   import Modal from "@/Components/Modal.vue";
   import { useStore } from 'vuex';
-  import CardUserDetail from "@/Fragments/Card/User/CardUserDetail.vue";
-  import CardUserEdit from "@/Fragments/Card/User/CardUserEdit.vue";
+  import FormPengajuanAdd from "@/Fragments/Forms/Pengajuan/FormPengajuanAdd.vue";
+  import CardPengajuanAdd from "@/Fragments/Card/Pengajuan/CardPengajuanAdd.vue";
+  import PrimaryButton from "@/Components/PrimaryButton.vue";
   import ActionButton from "@/Components/Table/Additional/ActionButton.vue";
-  import { faBars, faTimes,faEye,faDashboard,faEdit,faClipboard,faLayerGroup,faUserGear,faMoneyCheck,faCog } from '@fortawesome/free-solid-svg-icons';
+  import { faBars, faTimes,faEye,faPlusCircle,faEdit,faClipboard,faLayerGroup,faUserGear,faMoneyCheck,faCog } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 const icons = {
   bars: faBars,
   times: faTimes,
   eye: faEye,
-  dashboard: faDashboard,
+  plus: faPlusCircle,
   edit:faEdit,
   clipboard:faClipboard,
   layergroup:faLayerGroup,
@@ -67,7 +67,6 @@ const icons = {
   money:faMoneyCheck,
   cog:faCog,
 };
-const store = useStore();
 
   const searchTerm = ref("");
   const showModal = ref(false);
@@ -81,11 +80,7 @@ const store = useStore();
 
 
 
- const openModal = (usersId,type) =>{
-
-  store.commit('setUserId', usersId);
-  store.dispatch('fetchUser', usersId);
-
+ const openModal = (type) =>{
 
   selectedTypeModal.value = type;
   showModal.value = true;
@@ -94,8 +89,6 @@ const store = useStore();
 
  const closeModal = () =>{
 
-  store.commit('setUserId', '0');
-  store.commit('setUserData', 'loading');
 
   showModal.value = false;
 
@@ -113,41 +106,35 @@ const store = useStore();
         isKey: true,
       },
       {
-        label: "Name",
-        field: "name",
+        label: "Nama Pengusul",
+        field: "nama_pengusul",
         width: "10%",
         sortable: true,
       },
       {
-        label: "Email",
-        field: "email",
+        label: "Uraian Kegiatan",
+        field: "uraian_kegiatan",
+        width: "20%",
+        sortable: true,
+      },
+      {
+        label: "Jumlah Anggaran",
+        field: "pagu",
         width: "15%",
         sortable: true,
       },
       {
-        label: "Role",
-        field: "role",
+        label: "Reviewer",
+        field: "reviewer",
         width: "15%",
         sortable: true,
-        display: function (row) {
-            return (
-              '<a href="#" data-id="' +
-              row.id +
-              '" class="is-rows-el name-btn">' +
-              row.roles[0].name +
-              "</a>"
-            );
-          },
       },
       {
-        label: "Action",
+        label: "Status",
+        field: "status_pengajuan",
+        width: "15%",
         sortable: true,
-        field: "status",
-        width: "10%",
-        columnClasses: ["text-center"],
-        headerStyles: { background: "gray" },
-    
-      },
+      }
     ],
     sortable: {
       order: "id",
@@ -158,8 +145,8 @@ const store = useStore();
   const filteredRows = computed(() => {
     return props.initialData.filter(
       (x) =>
-        x.email.toLowerCase().includes(searchTerm.value.toLowerCase()) ||
-        x.name.toLowerCase().includes(searchTerm.value.toLowerCase())
+        x.uraian_kegiatan.toLowerCase().includes(searchTerm.value.toLowerCase()) ||
+        x.nama_pengusul.toLowerCase().includes(searchTerm.value.toLowerCase())
     );
   });
   

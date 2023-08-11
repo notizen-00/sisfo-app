@@ -11,7 +11,6 @@ defineProps({
     title: String,
 });
 
-
 const store = useStore(); // Menggunakan store Vuex di dalam komponen
 const isSidebarCollapsed = computed(() => store.state.isSidebarCollapsed);
 const toggleSidebar = () => store.commit('toggleSidebar');
@@ -31,6 +30,7 @@ const mainContentClasses = computed(() => {
     'h-screen': true,
     'bg-gray-100': true,
     'w-full': isSidebarCollapsed.value,
+    'w-0': !isSidebarCollapsed.value,
     'transition-[width] duration-700 ease-in-out':true
   };
 });
@@ -56,13 +56,13 @@ const icons = {
 
 
 <template>
-    <div class="flex h-screen bg-gray-100">
+    <div class="flex h-screen bg-gray-100 w">
     <aside class="bg-white shadow h-screen" :class="sidebarClasses">
         <Sidebar :isSidebarCollapsed="isSidebarCollapsed" @toggle-sidebar="toggleSidebar"/>
     
       </aside>
 
-      <div class="flex flex-col flex-1 ml-2 w-5/6" :class="mainContentClasses">
+      <div class="flex flex-col flex-1 ml-2 w-5/6 " :class="mainContentClasses">
 
         <Navbar />
  
