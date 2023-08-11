@@ -27,7 +27,7 @@
   
   </table-lite>
 
-    <Modal :show="showModal" maxWidth="6xl"  @close="closeModal">
+    <Modal :show="showModal" maxWidth="3xl"  @close="closeModal">
     
       <template #isiModal>
           
