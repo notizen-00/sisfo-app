@@ -4,14 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Models\Pengajuan;
 class PengajuanController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Pengajuan $pengajuan)
     {
-        return Inertia::render('Pengajuan/index');
+        return Inertia::render('Pengajuan/index',[
+
+                'pengajuan'=>$pengajuan::get()
+
+        ]);
     }
 
     /**
