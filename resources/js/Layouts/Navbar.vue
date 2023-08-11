@@ -6,6 +6,7 @@ import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
 import { faBars, faTimes,faHome,faBarsStaggered } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { useStore } from 'vuex';
@@ -132,7 +133,7 @@ const icons = {
                             <template #content>
                                 <!-- Account Management -->
                                 <div class="block px-4 py-2 text-xs text-gray-400">
-                                    Manage Account
+                                    Status Akun : <PrimaryButton classes="text-sm p-1">{{ $page.props.auth.roles }}</PrimaryButton>
                                 </div>
     
                                 <DropdownLink :href="route('profile.show')">

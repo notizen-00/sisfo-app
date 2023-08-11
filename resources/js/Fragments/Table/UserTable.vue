@@ -4,21 +4,53 @@
     </div>
     <table-lite
       :is-static-mode="true"
+      :is-slot-mode="true"
       :columns="table.columns"
       :rows="filteredRows"
       :total="totalRecordCount"
       :sortable="table.sortable"
-    ></table-lite>
+
+    >
+    <template v-slot:status="data">
+        <ActionButton :row="data.value.id" @open-detail-modal="openModal"  />
+    </template>
+  
+  </table-lite>
+    <Modal :show="showModal" maxWidth="2xl"  @close="closeModal">
+    
+      {{selectedUsersId}}
+    
+    </Modal>
   </template>
   
   <script setup>
-  import { ref, reactive, computed } from "vue";
+  import { ref, reactive, computed,defineEmits } from "vue";
   import TableLite from "@/Components/TableLite.vue";
-  const searchTerm = ref(""); // Search text
+  import Modal from "@/Components/Modal.vue";
+  import ActionButton from "@/Components/Table/Additional/ActionButton.vue";
+
+  const searchTerm = ref("");
+
+  const showModal = ref(false);
+
+  const selectedUsersId = ref("");
+   // Search text
   const props = defineProps({
   initialData: Array
 });
+ const openModal = (usersId) =>{
 
+  selectedUsersId.value = usersId;
+  showModal.value = true;
+
+ }
+
+ const closeModal = () =>{
+
+selectedUsersId.value = 0;
+showModal.value = false;
+
+}
   // Table config
   const table = reactive({
     columns: [
@@ -59,18 +91,10 @@
       },
       {
         label: "Action",
-        headerClasses: ["bg-gold"],
-        columnClasses: ["bg-slate-100"],
-        columnStyles: {  },
-        field: "quick",
+        sortable: true,
+        field: "status",
         width: "10%",
-        display: function (row) {
-          return (
-            '<button type="button" data-id="' +
-            row.id +
-            '" class="inline-flex items-center px-4 py-2 bg-blue-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-400 focus:bg-blue-400 active:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1 transition ease-in-out duration-150">Button</button>'
-          );
-        },
+    
       },
     ],
     sortable: {

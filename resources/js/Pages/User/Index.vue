@@ -3,17 +3,15 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import Welcome from '@/Components/Welcome.vue';
 import Banner from '@/Components/Banner.vue';
 import UserTable from '@/Fragments/Table/UserTable.vue';
-
+import Modal from '@/Components/Modal.vue';
 import { ref ,defineProps} from 'vue';
+
 // Sesuaikan path dengan lokasi komponen UserTable 
 const props = defineProps({
-  users: Array // Sesuaikan dengan tipe data yang diterima dari properti "users"
+  users: Array, // Sesuaikan dengan tipe data yang diterima dari properti "users"
 });
-const userData = ref(props.users);
 
-const components = {
-  UserTable,
-};
+const userData = ref(props.users);
 
 
 
@@ -32,5 +30,8 @@ const components = {
                 <UserTable :initialData="userData" /> 
             </div>
         </div>
+        <!-- Gunakan komponen Modal -->
+      
+   
     </AppLayout>
 </template>
