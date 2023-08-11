@@ -85,6 +85,7 @@ const maxWidthClass = computed(() => {
                 >
                     <div v-show="show" class="mb-6 bg-white rounded-lg overflow-hidden shadow-xl  transform transition-all sm:w-full sm:mx-auto mt-56" :class="maxWidthClass">
                         <slot v-if="show" />
+                        <slot name="isiModal"></slot>
                     </div>
                 </transition>
             </div>

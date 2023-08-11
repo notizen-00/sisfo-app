@@ -2,9 +2,9 @@
     <button
       type="button"
       @click="openModal"
-      class="inline-flex items-center px-4 py-2 bg-blue-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-400 focus:bg-blue-400 active:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1 transition ease-in-out duration-150"
     >
-      Button
+    <slot name="icons" />
+    
     </button>
   </template>
   
@@ -13,13 +13,14 @@
   
   const props = defineProps({
     row: Number,
+    type: String,
   });
-  
+
   const emit = defineEmits(['open-detail-modal']);
   
   const openModal = () => {
 
-    emit('open-detail-modal', props.row);
+    emit('open-detail-modal', props.row,props.type);
    
   };
   </script>
