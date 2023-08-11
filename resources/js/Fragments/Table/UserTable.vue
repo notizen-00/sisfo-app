@@ -27,12 +27,17 @@
   
   </table-lite>
 
-    <Modal :show="showModal" maxWidth="2xl"  @close="closeModal">
+    <Modal :show="showModal" maxWidth="6xl"  @close="closeModal">
     
       <template #isiModal>
           
-        <CardUserDetail v-if="selectedTypeModal === 'detail'" :id="selectedUsersId" />
-        <CardUserEdit v-else-if="selectedTypeModal === 'edit'" :id="selectedUsersId"/>
+        <CardUserDetail
+        v-if="selectedTypeModal === 'detail'"
+        />
+
+        <CardUserEdit
+        v-if="selectedTypeModal === 'edit'"
+        />
         
       </template>
     
@@ -40,9 +45,10 @@
   </template>
   
   <script setup>
-  import { ref, reactive, computed } from "vue";
+  import { ref, reactive, computed,onMounted } from "vue";
   import TableLite from "@/Components/TableLite.vue";
   import Modal from "@/Components/Modal.vue";
+  import { useStore } from 'vuex';
   import CardUserDetail from "@/Fragments/Card/User/CardUserDetail.vue";
   import CardUserEdit from "@/Fragments/Card/User/CardUserEdit.vue";
   import ActionButton from "@/Components/Table/Additional/ActionButton.vue";
@@ -61,20 +67,26 @@ const icons = {
   money:faMoneyCheck,
   cog:faCog,
 };
+const store = useStore();
 
   const searchTerm = ref("");
-
   const showModal = ref(false);
 
-  const selectedUsersId = ref("");
   const selectedTypeModal = ref("");
    // Search text
   const props = defineProps({
   initialData: Array
   });
+
+
+
+
  const openModal = (usersId,type) =>{
 
-  selectedUsersId.value = usersId;
+  store.commit('setUserId', usersId);
+  store.dispatch('fetchUser', usersId);
+
+
   selectedTypeModal.value = type;
   showModal.value = true;
 
@@ -82,8 +94,11 @@ const icons = {
 
  const closeModal = () =>{
 
-selectedUsersId.value = 0;
-showModal.value = false;
+  store.commit('setUserId', '0');
+  store.commit('setUserData', 'loading');
+
+  showModal.value = false;
+
 
 }
   // Table config

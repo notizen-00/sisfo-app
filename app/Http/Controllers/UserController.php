@@ -40,7 +40,9 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $data = User::find($id);
+
+        return Response()->json($data);
     }
 
     /**

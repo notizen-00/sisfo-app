@@ -38,20 +38,14 @@ class HandleInertiaRequests extends Middleware
     {
         $roles = [];
     
-      
             $user = $request->user();
-            if(empty($roles)){
-                $roles = [];
-            }else{
-                $roles = $user->roles[0]->name;
-            }
-            
+            $roles = isset($user->roles[0]->name) ? $user->roles[0]->name : [];
         
     
         return array_merge(parent::share($request), [
             'auth' => [
                 'user' => $user ? $user->only('id', 'name', 'email') : null,
-                'roles' => isset($roles) ? $roles : [], // Use isset to prevent an error
+                'roles' => $roles ? $roles : [] , // Use isset to prevent an error
                 'can' => $user ? $user->getPermissionArray() : [],
             ],
         ]);
