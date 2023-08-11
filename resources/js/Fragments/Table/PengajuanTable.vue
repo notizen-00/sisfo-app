@@ -1,5 +1,5 @@
 <template>
-  <div class="flex inline-block justify-between">
+  <div class="flex justify-between">
 
     <div style="text-align: left" class="">
       <label>Search : </label><input class="text-sm border-2 py-1 rounded-md border-blue-400 mb-2" v-model="searchTerm" />
