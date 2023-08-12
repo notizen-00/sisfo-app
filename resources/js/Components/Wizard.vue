@@ -1,7 +1,7 @@
 <template>
-    <FormWizard @on-complete="onComplete" color="#094899">
-
-      <TabContent title="Personal details"  icon="fa fa-user">
+    <FormWizard @on-complete="onComplete" color="#094899"  v-bind="$attrs">
+  
+      <TabContent title="Personal details" icon="fa fa-user">
         My first tab content
       </TabContent>
       <TabContent title="Additional Info" icon="fa fa-gear">
@@ -11,28 +11,19 @@
         Yuhuuu! This seems pretty damn simple
       </TabContent>
     </FormWizard>
+
+    
   </template>
   
-  <script>
-  //local registration
+  <script setup>
   import { FormWizard, TabContent } from "vue3-form-wizard";
   import "vue3-form-wizard/dist/style.css";
-
-
-
-  export default {
-    //component code
-    components: {
-      FormWizard,
-      TabContent,
-    },
-    methods: {
-       onComplete() {
-        alert("Yay. Done!");
-      },
-    },
+  
+  const onComplete = () => {
+    alert("Yay. Done!");
   };
   </script>
+  
   <style>
   @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css");
   </style>

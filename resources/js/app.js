@@ -2,7 +2,6 @@ import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
-import InertiaMixin from '@/Service/InertiaMixin';
 import store from '@/store/store.js';
 import '@/app.css';
 
@@ -17,10 +16,16 @@ createInertiaApp({
         const VueApp = createApp({ render: () => h(App, props) });
 
        
+    VueApp.config.warnHandler = (msg, vm, trace) => {
+        if (msg.startsWith('Methods property "route" is already defined in Props')) {
+            // Do nothing or log the message if you want
+            return;
+        }
+        console.warn(msg, vm, trace);
+    };
         VueApp.use(plugin)
         .use(ZiggyVue)
         .use(store)
-        .mixin(InertiaMixin)
         .mount(el);
 
 

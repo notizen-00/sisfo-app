@@ -3,19 +3,22 @@
       type="button"
       @click="openModal"
     >
+  
     <slot name="icons" />
-    
+   
     </button>
   </template>
   
   <script setup>
   import { defineProps, defineEmits } from 'vue';
-  
+  import { Link } from '@inertiajs/vue3';
   const props = defineProps({
     row: {
     type: Number,
-    default: null, // Mengatur default value menjadi null
+    default: null,
+     // Mengatur default value menjadi null
   },
+  
     type: String,
   });
 

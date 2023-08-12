@@ -5,12 +5,11 @@
       <label>Search : </label><input class="text-sm border-2 py-1 rounded-md border-blue-400 mb-2" v-model="searchTerm" />
     </div>
     <div style="text-align: right">
-
-      <ActionButton  @open-detail-modal="openModal" type="add" >
-        <template #icons>
+      <NavLinkSidebar :href="route('pengajuan.create')" :active="false" >
+        
         <span class="bg-blue-500 px-4 py-2 rounded-md hover:bg-blue-700 active:bg-blue-300 text-white">Tambah <font-awesome-icon :icon="icons.plus" class="text-blue-100/50 " />  </span> 
-        </template>
-      </ActionButton>
+     
+      </NavLinkSidebar>
     </div>
 
   </div>
@@ -54,6 +53,7 @@
   import ActionButton from "@/Components/Table/Additional/ActionButton.vue";
   import { faBars, faTimes,faEye,faPlusCircle,faEdit,faClipboard,faLayerGroup,faUserGear,faMoneyCheck,faCog } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import NavLinkSidebar from "@/Components/NavLinkSidebar.vue";
 
 const icons = {
   bars: faBars,
