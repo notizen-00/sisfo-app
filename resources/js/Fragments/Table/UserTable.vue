@@ -22,7 +22,13 @@
           <template #icons>
            <font-awesome-icon :icon="icons.edit" size="1x"  class="text-green-500 ml-2"/>
           </template>
-      </ActionButton>
+        </ActionButton>
+
+        <ActionButton :row="data.value.id" @open-detail-modal="openModal" type="delete" >
+          <template #icons>
+           <font-awesome-icon :icon="icons.trash" size="1x"  class="text-red-500 ml-2"/>
+          </template>
+        </ActionButton>
     </template>
   
   </table-lite>
@@ -52,7 +58,7 @@
   import CardUserDetail from "@/Fragments/Card/User/CardUserDetail.vue";
   import CardUserEdit from "@/Fragments/Card/User/CardUserEdit.vue";
   import ActionButton from "@/Components/Table/Additional/ActionButton.vue";
-  import { faBars, faTimes,faEye,faDashboard,faEdit,faClipboard,faLayerGroup,faUserGear,faMoneyCheck,faCog } from '@fortawesome/free-solid-svg-icons';
+  import { faBars, faTimes,faEye,faDashboard,faEdit,faClipboard,faLayerGroup,faUserGear,faMoneyCheck,faCog,faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 const icons = {
@@ -66,6 +72,7 @@ const icons = {
   usergear:faUserGear,
   money:faMoneyCheck,
   cog:faCog,
+  trash:faTrash
 };
 const store = useStore();
 
@@ -146,6 +153,7 @@ const store = useStore();
         width: "10%",
         columnClasses: ["text-center"],
         headerStyles: { background: "gray" },
+        HeaderClasses: ["text-tengah"]
     
       },
     ],
@@ -167,4 +175,8 @@ const store = useStore();
     return filteredRows.value.length;
   });
   </script>
-  
+  <style scoped>
+  .text-tengah{
+   text-align:center;
+  }
+  </style>

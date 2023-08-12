@@ -85,6 +85,25 @@
                     <InputError class="mt-2" :message="form.errors.output" />
                 </div>
             </div>
+
+            <div>
+                <InputLabel for="file_tor" class="text-left ml-1" value="File Tor" />
+                <TextInput
+                    id="file_tor"
+                    v-model="form.file_tor"
+                    type="file"
+                    class="mt-1 py-1 block w-full"
+                    required
+                    autofocus
+                    autocomplete="file_tor"
+                />
+             
+            </div>
+            <progress v-if="form.progress" :value="form.progress.percentage" max="100">
+                {{ form.progress.percentage }}%
+            </progress>
+            <!-- <input type="file" @input="form.file_tor = $event.target.files[0]" /> -->
+          
            
             
           
