@@ -1,24 +1,27 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
 import Welcome from '@/Components/Welcome.vue';
-import Banner from '@/Components/Banner.vue';
-import Table from '@/Components/Table.vue';
+import SectionTitle from '@/Components/SectionTitle.vue';
+import Wizard from '@/Components/Wizard.vue';
 
-import { ref } from 'vue'
-
-const searchQuery = ref('')
-const gridColumns = ['name', 'power']
-const gridData = [
-  { name: 'Chuck Norris', power: Infinity },
-  { name: 'Bruce Lee', power: 9000 },
-  { name: 'Jackie Chan', power: 7000 },
-  { name: 'Jet Li', power: 8000 }
-]
-
- 
 
 </script>
 
 <template>
-  
+    <AppLayout title="Pengajuan">
+        <template #header>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+               Dashboard
+            </h2>
+        </template>
+
+
+        <div class="py-12 md:w-full  sm:w-screen">
+            <div class=" mx-auto sm:px-6 lg:px-8">
+                <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+                    <Wizard/>
+                </div>
+            </div>
+        </div>
+    </AppLayout>
 </template>

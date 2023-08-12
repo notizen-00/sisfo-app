@@ -38,9 +38,5 @@ Route::middleware([
     Route::resource('/user','App\Http\Controllers\UserController');
     Route::resource('/claim','App\Http\Controllers\ClaimController');
 
-    Route::get('/menu',function(){
 
-        return Inertia::render('Menu');
-
-    })->name('menu');
 });
