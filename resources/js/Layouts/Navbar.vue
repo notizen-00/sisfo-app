@@ -192,9 +192,7 @@ const icons = {
                 <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
                     Dashboard
                 </ResponsiveNavLink>
-                <ResponsiveNavLink :href="route('menu')" :active="route().current('menu')">
-                    Menu
-                </ResponsiveNavLink>
+           
             </div>
     
             <!-- Responsive Settings Options -->

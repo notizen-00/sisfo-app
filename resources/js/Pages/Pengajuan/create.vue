@@ -1,7 +1,6 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import Welcome from '@/Components/Welcome.vue';
-import SectionTitle from '@/Components/SectionTitle.vue';
+
 import Wizard from '@/Fragments/Forms/Pengajuan/Wizard.vue';
 
 
@@ -11,7 +10,7 @@ import Wizard from '@/Fragments/Forms/Pengajuan/Wizard.vue';
     <AppLayout title="Pengajuan">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-               Create Pengajuan Kegiatan
+               Tambah Pengajuan Kegiatan
             </h2>
         </template>
 

@@ -9,5 +9,11 @@ class Pengajuan extends Model
 {
     use HasFactory;
     
+    protected $guarded = [];  
     protected $table = 'pengajuan';
+
+    public function users(){
+
+        return $this->belongsTo(User::class,'users_id');
+    }
 }

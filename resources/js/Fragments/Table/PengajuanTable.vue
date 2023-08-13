@@ -23,8 +23,16 @@
       :sortable="table.sortable"
 
     >
-    <template v-slot:status="data">
-      
+    <template v-slot:uraian_kegiatan="data">
+    
+      <detail-tooltip-pengajuan>
+        <template #title>
+         {{ data.value.nama_pengajuan}} 
+        </template>
+        <template #content>
+          <h1>js</h1>{{ data.value.nama_pengajuan}} 
+         </template>
+      </detail-tooltip-pengajuan>
     </template>
   
   </table-lite>
@@ -47,13 +55,19 @@
   import TableLite from "@/Components/TableLite.vue";
   import Modal from "@/Components/Modal.vue";
   import { useStore } from 'vuex';
-  import FormPengajuanAdd from "@/Fragments/Forms/Pengajuan/FormPengajuanAdd.vue";
   import CardPengajuanAdd from "@/Fragments/Card/Pengajuan/CardPengajuanAdd.vue";
-  import PrimaryButton from "@/Components/PrimaryButton.vue";
-  import ActionButton from "@/Components/Table/Additional/ActionButton.vue";
+  import DetailTooltipPengajuan from "../Card/Pengajuan/DetailTooltip.vue";
   import { faBars, faTimes,faEye,faPlusCircle,faEdit,faClipboard,faLayerGroup,faUserGear,faMoneyCheck,faCog } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import NavLinkSidebar from "@/Components/NavLinkSidebar.vue";
+  import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+  import NavLinkSidebar from "@/Components/NavLinkSidebar.vue";
+
+const FormatRupiah = (number)=>{
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR"
+    }).format(number);
+  }
+
 
 const icons = {
   bars: faBars,
@@ -110,24 +124,39 @@ const icons = {
         field: "nama_pengusul",
         width: "10%",
         sortable: true,
+        display:function(row){
+          return row.users.name
+        }
       },
       {
         label: "Uraian Kegiatan",
         field: "uraian_kegiatan",
-        width: "20%",
+        width: "25%",
         sortable: true,
+     
       },
       {
         label: "Jumlah Anggaran",
         field: "pagu",
         width: "15%",
         sortable: true,
+        display:function(row){
+          return FormatRupiah(row.pagu);
+        }
       },
       {
         label: "Reviewer",
         field: "reviewer",
         width: "15%",
+        columnClasses:['text-center w-screen md:w-fit'],
         sortable: true,
+        display:function(row){
+          if(row.reviewer_id == null){
+            return "<span class='bg-blue-500 p-1 text-xs rounded-md text-white cursor-text'>Tidak Ada Reviewer</span>";
+          }else{
+            return 1;
+          }
+        }
       },
       {
         label: "Status",
@@ -145,8 +174,8 @@ const icons = {
   const filteredRows = computed(() => {
     return props.initialData.filter(
       (x) =>
-        x.uraian_kegiatan.toLowerCase().includes(searchTerm.value.toLowerCase()) ||
-        x.nama_pengusul.toLowerCase().includes(searchTerm.value.toLowerCase())
+        x.nama_pengajuan ||
+        x.nama_pengusul
     );
   });
   
