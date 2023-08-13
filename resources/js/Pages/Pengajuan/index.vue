@@ -13,7 +13,7 @@ const dataPengajuan = ref(props.pengajuan);
 </script>
 
 <template>
-    <AppLayout title="Dashboard">
+    <AppLayout title="Data Pengajuan">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Data Pengajuan

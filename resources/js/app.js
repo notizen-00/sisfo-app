@@ -4,6 +4,7 @@ import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 import store from '@/store/store.js';
 import Popper from "vue3-popper";
+import Multiselect from "vue-multiselect";
 import '@/app.css';
 
 
@@ -28,6 +29,7 @@ createInertiaApp({
         .use(ZiggyVue)
         .use(store)
         .component("Popper",Popper)
+        .component('multiselect', Multiselect)
         .mount(el);
 
 

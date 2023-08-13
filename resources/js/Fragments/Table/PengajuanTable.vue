@@ -25,12 +25,14 @@
     >
     <template v-slot:uraian_kegiatan="data">
     
-      <detail-tooltip-pengajuan>
+      <detail-tooltip-pengajuan :href="route('pengajuan.show',{ id: data.value.id })">
         <template #title>
          {{ data.value.nama_pengajuan}} 
         </template>
         <template #content>
-          <h1>js</h1>{{ data.value.nama_pengajuan}} 
+          <h1><span class="fas fa-map-location-dot text-green-500"></span> {{ data.value.lokasi }}</h1>
+          <h1><span class="fas fa-calendar-days text-orange-300"> </span> {{ data.value.tanggal_pelaksanaan }} / {{ data.value.tanggal_selesai }}</h1>
+          <h1><span class="fas fa-lightbulb text-blue-300"> </span> {{ data.value.kode_mak }}</h1>
          </template>
       </detail-tooltip-pengajuan>
     </template>
@@ -183,4 +185,6 @@ const icons = {
     return filteredRows.value.length;
   });
   </script>
-  
+  <style scoped>
+  @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css");
+  </style>

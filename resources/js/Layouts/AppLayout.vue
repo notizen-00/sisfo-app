@@ -56,6 +56,7 @@ const icons = {
 
 
 <template>
+  <Head :title="title"></Head>
     <div class="flex h-screen bg-gray-100 w">
     <aside class="bg-white shadow h-screen" :class="sidebarClasses">
         <Sidebar :isSidebarCollapsed="isSidebarCollapsed" @toggle-sidebar="toggleSidebar"/>

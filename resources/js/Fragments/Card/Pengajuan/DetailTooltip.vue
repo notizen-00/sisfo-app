@@ -1,7 +1,7 @@
 <template>
 
-    <Popper arrow hover openDelay="200" closeDelay="100">
-        <NavLinkSidebar :href="route('pengajuan.create')">
+    <Popper arrow hover placement="top" openDelay="200" closeDelay="100">
+        <NavLinkSidebar :href="href">
             <slot name="title"></slot>
         </NavLinkSidebar>
         <template #content>
@@ -13,4 +13,8 @@
 
 <script setup>
     import NavLinkSidebar from '@/Components/NavLinkSidebar.vue';
+
+defineProps({
+    href: String,
+});
 </script>

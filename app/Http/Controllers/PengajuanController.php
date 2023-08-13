@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Pengajuan;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 class PengajuanController extends Controller
 {
     /**
@@ -36,7 +37,12 @@ class PengajuanController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Pengajuan/create');
+
+        $iku = Pengajuan::select('nama_pengajuan','id')->get();
+
+        return Inertia::render('Pengajuan/create',[
+                'iku'=>$iku
+        ]);
     }
 
     /**
@@ -101,6 +107,13 @@ class PengajuanController extends Controller
      */
     public function show(string $id)
     {
+
+        $detail = Pengajuan::findOrFail($id);
+        
+        return Inertia::render('Pengajuan/detail',[
+            'detail'=>$detail
+        ]);
+        
         //
     }
 

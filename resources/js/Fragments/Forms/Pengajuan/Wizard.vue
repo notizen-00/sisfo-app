@@ -7,7 +7,8 @@
     @on-validate="handleValidation" color="#094899" :start-index="0"  finish-button-text="Simpan" >
     
       <TabContent title="Data Kegiatan" icon="fa fa-user" :before-change="beforeTabFirstSwitch">
-
+        
+        
         <div class="w md:w-2/3 sm:w-full mx-auto">
             <InputLabel
               :class="labelClass('nama_pengusul')"
@@ -201,7 +202,9 @@
           :class="labelClass('iku')"
           value="IKU"
         />
-        <select class="py-2 rounded-md w-full text-slate-500 text-center "
+
+     
+        <!-- <select class="py-2 rounded-md w-full text-slate-500 text-center "
           v-model="form.iku_id"
           :class="inputClass('iku')"
           @focus="setFocused('iku', true)"
@@ -209,7 +212,7 @@
   
         >
             <option value="1">-- Silahkan Pilih Iku --</option>
-        </select>
+        </select> -->
         <InputError class="mt-2" :message="form.errors.iku_id" />
      </div>
      
@@ -322,7 +325,7 @@ const setFocused = (field, value) => {
   focusedField.value = field;
 };
 const loadingWizard = ref(false);
-const page = usePage()
+const page = usePage();
 const labelClass = (field) => {
   return {
     'text-center text-slate-600 capitalize ml-1': !isFocused.value || focusedField.value !== field,
@@ -338,6 +341,7 @@ const inputClass = (field) => {
   };
 };
 
+
   const computedStepSize = computed(() => {
   const screenWidth = window.innerWidth;
   if (screenWidth <= 540) { // Ubah angka 640 sesuai kebutuhan
@@ -347,7 +351,13 @@ const inputClass = (field) => {
   }
 });
 
-defineProps({ errors: Object })
+defineProps({ 
+  errors: Object,
+  iku:Array
+ })
+
+
+
 const setLoading = (value) => {
     loadingWizard.value = value;
 }
@@ -355,9 +365,8 @@ const setLoading = (value) => {
 const handleValidation = (isValid,tabIndex) => {
   console.log('Tab: '+tabIndex+ ' valid: '+isValid)
 };
-onMounted(() => {
-  
-});
+
+
 
   const form = useForm({
     // Menggunakan ref untuk mengubah input dan masih memuat data awal dari Vuex saat komponen dimuat
@@ -379,7 +388,7 @@ onMounted(() => {
 });
 const beforeTabFirstSwitch = () => {
 
-  const requiredFields = ['nama_pengusul', 'kode_mak', 'nama_pengajuan', 'lokasi', 'tanggal_pelaksanaan', 'tanggal_selesai'];
+  const requiredFields = [ 'kode_mak', 'nama_pengajuan', 'lokasi', 'tanggal_pelaksanaan', 'tanggal_selesai'];
 
   return new Promise((resolve, reject) => {
        setTimeout(() => {
@@ -390,7 +399,7 @@ const beforeTabFirstSwitch = () => {
     }
   }
          resolve(true)
-       }, 1000)
+       }, 1500)
      })
 
 }
