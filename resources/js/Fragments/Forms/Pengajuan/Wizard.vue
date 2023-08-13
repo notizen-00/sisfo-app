@@ -8,7 +8,7 @@
     
       <TabContent title="Data Kegiatan" icon="fa fa-user" :before-change="beforeTabFirstSwitch">
         
-        
+     
         <div class="w md:w-2/3 sm:w-full mx-auto">
             <InputLabel
               :class="labelClass('nama_pengusul')"
@@ -213,6 +213,24 @@
         >
             <option value="1">-- Silahkan Pilih Iku --</option>
         </select> -->
+        <Multiselect
+      v-model="value"
+      placeholder="Select your character"
+      label="name"
+      trackBy="name"
+      :options="options"
+      :searchable="true"
+    >
+      <template v-slot:singleLabel="{ value }">
+        <div class="multiselect-single-label">
+          <img height="26" style="margin: 0 6px 0 0;" :src="value.icon"> {{ value.name }}
+        </div>
+      </template>
+
+      <template v-slot:option="{ option }">
+        <img height="22" style="margin: 0 6px 0 0;" :src="option.icon">{{ option.name }}
+      </template>
+    </Multiselect>
         <InputError class="mt-2" :message="form.errors.iku_id" />
      </div>
      
@@ -317,6 +335,14 @@
   import InputError from '@/Components/InputError.vue';
   import InputLabel from '@/Components/InputLabel.vue';
   import PrimaryButton from '@/Components/PrimaryButton.vue';
+  import Multiselect from '@vueform/multiselect'
+  
+  const value = ref([]);
+ const  options = [
+          { value: 'captainamerica', name: 'Captain America', icon: 'https://cdn2.iconfinder.com/data/icons/avengers-filled/48/03_-_Captain_America_-_infinity_war_-_end_game_-_marvel_-_avengers_-_super_hero-512.png' },
+          { value: 'spiderman', name: 'Spiderman', icon: 'https://cdn2.iconfinder.com/data/icons/avengers-filled/48/12_-_Spiderman_-_infinity_war_-_end_game_-_marvel_-_avengers_-_super_hero-512.png' },
+          { value: 'ironman', name: 'Iron Man', icon: 'https://cdn2.iconfinder.com/data/icons/avengers-filled/48/02_-_IRONMAN_-_infinity_war_-_end_game_-_marvel_-_avengers_-_super_hero-512.png' },
+        ];
 
 const isFocused = ref(false);
 const focusedField = ref('');
@@ -423,7 +449,7 @@ for (const field of requiredFields) {
 }
 
   </script>
-  
+  <style src="@vueform/multiselect/themes/default.css"></style>
   <style>
   @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css");
 
