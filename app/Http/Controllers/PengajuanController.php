@@ -108,7 +108,7 @@ class PengajuanController extends Controller
     public function show(string $id)
     {
 
-        $detail = Pengajuan::findOrFail($id);
+        $detail = Pengajuan::where('id',$id)->get();
         
         return Inertia::render('Pengajuan/detail',[
             'detail'=>$detail

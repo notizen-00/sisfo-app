@@ -214,8 +214,8 @@
             <option value="1">-- Silahkan Pilih Iku --</option>
         </select> -->
         <Multiselect
-      v-model="value"
-      placeholder="Select your character"
+      v-model="form.iku_id"
+      placeholder="Pilih data iku "
       label="name"
       trackBy="name"
       :options="options"
@@ -339,9 +339,9 @@
   
   const value = ref([]);
  const  options = [
-          { value: 'captainamerica', name: 'Captain America', icon: 'https://cdn2.iconfinder.com/data/icons/avengers-filled/48/03_-_Captain_America_-_infinity_war_-_end_game_-_marvel_-_avengers_-_super_hero-512.png' },
-          { value: 'spiderman', name: 'Spiderman', icon: 'https://cdn2.iconfinder.com/data/icons/avengers-filled/48/12_-_Spiderman_-_infinity_war_-_end_game_-_marvel_-_avengers_-_super_hero-512.png' },
-          { value: 'ironman', name: 'Iron Man', icon: 'https://cdn2.iconfinder.com/data/icons/avengers-filled/48/02_-_IRONMAN_-_infinity_war_-_end_game_-_marvel_-_avengers_-_super_hero-512.png' },
+          { value: '1', name: 'Captain America'},
+          { value: '2', name: 'Spiderman'},
+          { value: '3', name: 'Iron Man' },
         ];
 
 const isFocused = ref(false);

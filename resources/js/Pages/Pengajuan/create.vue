@@ -1,7 +1,7 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
 
-import Wizard from '@/Fragments/Forms/Pengajuan/Wizard.vue';
+import FormAdd from '@/Fragments/Forms/Pengajuan/FormAdd.vue';
 
 
 </script>
@@ -18,7 +18,7 @@ import Wizard from '@/Fragments/Forms/Pengajuan/Wizard.vue';
         <div class="py-12 md:w-full  sm:w-screen">
             <div class=" mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                    <Wizard/>
+                    <FormAdd/>
                 </div>
             </div>
         </div>

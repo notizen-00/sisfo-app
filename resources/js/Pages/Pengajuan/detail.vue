@@ -1,6 +1,7 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import {ref} from 'vue';
+import {ref,defineProps} from 'vue';
+import FormShow from '@/Fragments/Forms/Pengajuan/FormShow.vue';
 
 
 const props = defineProps({
@@ -22,8 +23,7 @@ const detailPengajuan = ref(props.detail);
         <div class="py-12 md:w-full  sm:w-screen">
             <div class=" mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                    <iframe class="mx-auto" v-if="detailPengajuan.file_tor" :src="`/storage/files/${detailPengajuan.file_tor}`" width="900" height="900"></iframe>
-
+                    <FormShow :initialData="detailPengajuan"/>
                 </div>
             </div>
         </div>

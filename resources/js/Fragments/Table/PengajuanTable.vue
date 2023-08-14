@@ -36,6 +36,10 @@
          </template>
       </detail-tooltip-pengajuan>
     </template>
+
+    <template v-slot:status_pengajuan="data">
+      <SpanStatus :nomor="data.value.status_pengajuan "/>
+    </template>
   
   </table-lite>
 
@@ -62,6 +66,7 @@
   import { faBars, faTimes,faEye,faPlusCircle,faEdit,faClipboard,faLayerGroup,faUserGear,faMoneyCheck,faCog } from '@fortawesome/free-solid-svg-icons';
   import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
   import NavLinkSidebar from "@/Components/NavLinkSidebar.vue";
+  import SpanStatus from "@/Fragments/Status/StatusPengajuan.vue";
 
 const FormatRupiah = (number)=>{
     return new Intl.NumberFormat("id-ID", {
@@ -164,6 +169,7 @@ const icons = {
         label: "Status",
         field: "status_pengajuan",
         width: "15%",
+        columnClasses:['text-center bg-slate-100'],
         sortable: true,
       }
     ],
