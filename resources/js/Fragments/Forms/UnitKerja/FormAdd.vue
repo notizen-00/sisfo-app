@@ -1,23 +1,21 @@
 <template>
+    <Head title="Form Tambah Unit Kerja"></Head>
     <div class="w-full mx-auto">
 
-        <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
-            {{ status }}
-        </div>
+       
 
         <form @submit.prevent="submitForm">
             <div>
-                <InputLabel for="unit_kerja" class="text-left ml-1" value="Unit Kerja" />
+                <InputLabel for="nama_unit" class="text-left ml-1" value="Unit Kerja" />
                 <TextInput
-                    id="unit_kerja"
-                    v-model="form.unit_kerja"
+                    id="nama_unit"
+                    v-model="form.nama_unit"
                     type="text"
                     class="mt-1 block w-full"
-                    required
                     autofocus
-                    autocomplete="unit_kerja"
+                    autocomplete="nama_unit"
                 />
-                <InputError class="mt-2" :message="form.errors.unit_kerja" />
+                <InputError class="mt-2" :message="form.errors.nama_unit" />
             </div>
 
             <div class="mt-4">
@@ -54,25 +52,25 @@ import TextInput from '@/Components/TextInput.vue';
 
 const { props } = defineProps({
     canResetPassword: Boolean,
+    errors:Object,
     status: String,
 });
 
 const form = useForm({
-    // Menggunakan ref untuk mengubah input dan masih memuat data awal dari Vuex saat komponen dimuat
-    unit_kerja: '',
+   
+    nama_unit: '',
     pagu: '',
 
 });
 
-
-
-const submitForm = (event) => {
-    event.preventDefault();
-
+const submitForm = () => {
     form.transform(data => ({
         ...data,
     })).post(route('unitkerja.store'), {
-        onFinish: () => form.reset('password'),
+        onFinish: () => {    
+          form.reset('password')
+          window.location.reload();
+        },
     });
 };
 </script>

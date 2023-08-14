@@ -30,7 +30,27 @@ class UnitkerjaController extends Controller
      */
     public function store(Request $request)
     {
-        return response()->json($request->all());
+        $validator = $request->validate([
+            'pagu'=>'required|integer',
+            'nama_unit'=>'required'
+        ],
+            [
+                'required' => 'Wajib di isi',    
+            ]
+        );
+    
+       $unit_kerja = UnitKerja::create($validator);
+
+        if($unit_kerja)
+        {
+            return to_route('unitkerja.index')->with('message','Data Berhasil di tambahkan');
+
+        }else{
+
+            return to_route('unitkerja.create')->with('message','Data gagal di tambahkan');
+
+        }
+    
     }
 
     /**

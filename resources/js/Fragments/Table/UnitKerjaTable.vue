@@ -76,6 +76,7 @@
   
   import { faBars, faTimes,faEye,faDashboard,faEdit,faPlusCircle,faLayerGroup,faUserGear,faMoneyCheck,faCog,faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { formatRupiah } from "@/Service/Helper";
 
 const icons = {
   bars: faBars,
@@ -137,7 +138,7 @@ const store = useStore();
       },
       {
         label: "Unit Kerja",
-        field: "unit_kerja",
+        field: "nama_unit",
         width: "10%",
         sortable: true,
       },
@@ -146,6 +147,9 @@ const store = useStore();
         field: "pagu",
         width: "15%",
         sortable: true,
+        display:function(row){
+          return formatRupiah(row.pagu)
+        }
       },
       {
         label: "Action",
@@ -167,8 +171,8 @@ const store = useStore();
   const filteredRows = computed(() => {
     return props.initialData.filter(
       (x) =>
-        x.email.toLowerCase().includes(searchTerm.value.toLowerCase()) ||
-        x.name.toLowerCase().includes(searchTerm.value.toLowerCase())
+        x.nama_unit.toLowerCase().includes(searchTerm.value.toLowerCase()) ||
+        x.pagu
     );
   });
   

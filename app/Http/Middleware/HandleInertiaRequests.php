@@ -48,6 +48,9 @@ class HandleInertiaRequests extends Middleware
                 'roles' => $roles ? $roles : [] , // Use isset to prevent an error
                 'can' => $user ? $user->getPermissionArray() : [],
             ],
+            'flash' => [
+                'message' => fn () => $request->session()->get('message')
+            ],
         ]);
     }
     
