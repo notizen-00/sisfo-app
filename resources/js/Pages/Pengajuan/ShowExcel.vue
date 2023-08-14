@@ -28,6 +28,11 @@
   const headers = ref([]);
   const data = ref([]);
   
+  defineProps({
+     filename:String
+  })
+
+
   onMounted(async () => {
     /* parse workbook */
     const url = "http://sisfo-app.test/storage/files/file_rab_1691977428.xlsx";
