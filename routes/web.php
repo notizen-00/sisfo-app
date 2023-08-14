@@ -37,6 +37,7 @@ Route::middleware([
     Route::resource('/rekapitulasi','App\Http\Controllers\RekapitulasiController');
     Route::resource('/user','App\Http\Controllers\UserController');
     Route::resource('/claim','App\Http\Controllers\ClaimController');
+    Route::resource('/unitkerja','App\Http\Controllers\UnitKerjaController');
 
 
 });

@@ -9,6 +9,7 @@ import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLinkSidebar from '@/Components/NavLinkSidebar.vue';
 import AuthenticationCardLogo from '@/Components/AuthenticationCardLogo.vue';
 
+
 const props = defineProps({
   isSidebarCollapsed: Boolean
 });
@@ -124,7 +125,7 @@ const icons = {
               </li>
       
               <li >
-                <DropdownLink :href="route('dashboard')">Data Unit Kerja</DropdownLink>
+                <DropdownLink :href="route('unitkerja.index')" :active="route().current('unitkerja.index')">Data Unit Kerja</DropdownLink>
               </li>
       
               <li class="border-t border-gray-200" />

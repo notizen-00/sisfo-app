@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Models\UnitKerja;
 class UnitkerjaController extends Controller
 {
     /**
@@ -11,7 +12,9 @@ class UnitkerjaController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Unitkerja');
+        return Inertia::render('UnitKerja/index',[
+            'data'=>UnitKerja::get()
+        ]);
     }
 
     /**
@@ -19,7 +22,7 @@ class UnitkerjaController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -27,7 +30,7 @@ class UnitkerjaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return response()->json($request->all());
     }
 
     /**

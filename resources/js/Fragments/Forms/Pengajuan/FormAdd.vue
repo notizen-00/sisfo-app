@@ -218,6 +218,7 @@
       placeholder="Pilih data iku "
       label="name"
       trackBy="name"
+      :multiple="true"
       :options="options"
       :searchable="true"
     >

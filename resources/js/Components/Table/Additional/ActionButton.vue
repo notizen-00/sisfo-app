@@ -18,7 +18,6 @@
     default: null,
      // Mengatur default value menjadi null
   },
-  
     type: String,
   });
 
