@@ -21,6 +21,9 @@ const detailPengajuan = ref(props.detail);
         </template>
 
         <Toolbar :id="detailPengajuan[0].id" />
+        <div class="">
+            <small>Pengajuan Ini Di Update Terakhir Kali pada tanggal <u>{{ detailPengajuan[0].updated_at }}</u></small>    
+        </div>
 
         <div class="py-12 md:w-full  sm:w-screen">
             <div class=" mx-auto sm:px-6 lg:px-8">

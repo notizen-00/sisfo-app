@@ -244,7 +244,7 @@
                   />
                   <TextInput
                    id="file_tor"
-                   @change="handleFileTorChange"
+                   @input="form.file_rab = $event.target.files[0]"
                   :class="inputClass('file_tor')"
                   type="file"
                   class=" block w-full mx-auto md:w-full sm:w-full"

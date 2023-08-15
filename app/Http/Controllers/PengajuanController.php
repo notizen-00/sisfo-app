@@ -132,10 +132,58 @@ class PengajuanController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        return response()->json($request->all());
+        $validator = $request->validate([
+            'users_id' => 'required|integer',
+            'kode_mak' => 'required',
+            'pjk' => 'required',
+            'pagu' => 'required',
+            'output' => 'required',
+            'iku_id' => 'required',
+            'nama_pengajuan' => 'required',
+            'lokasi' => 'required',
+            'tanggal_pelaksanaan' => 'required|date',
+            'tanggal_selesai' => 'required|date|after_or_equal:tanggal_pelaksanaan',
+            'file_rab' => $request->hasFile('file_rab') ? 'nullable|mimes:doc,csv,xlsx,xls,docx,ppt,odt,ods,odp,pdf' : '',
+            'file_tor' => $request->hasFile('file_tor') ? 'nullable|mimes:doc,csv,xlsx,xls,docx,ppt,odt,ods,odp,pdf' : '',
+        ],
+        [
+            'required' => 'Wajib di isi',
+            'after_or_equal' => 'Harus setelah tanggal pelaksanaan',
+            'mimes' => 'Harus bertipe pdf,xlsx,csv'
+        ]);
+    
+        $pengajuanData = $validator + [
+            'status_pengajuan' => '1'
+        ];
+    
+        $pengajuan = Pengajuan::find($id);
+    
+        if (!$pengajuan) {
+            return redirect()->route('users.create');
+        }
+    
+        $pengajuan->update($pengajuanData);
+    
+        if ($request->hasFile('file_rab')) {
+            $fileRab = $request->file('file_rab');
+            $filenameRab = 'file_rab_' . time() . '.' . $fileRab->getClientOriginalExtension();
+            $pathRab = $fileRab->storeAs('public/files', $filenameRab);
+            $pengajuan->update(['file_rab' => $filenameRab]);
+        }
+    
+        if ($request->hasFile('file_tor')) {
+            $fileTor = $request->file('file_tor');
+            $filenameTor = 'file_tor_' . time() . '.' . $fileTor->getClientOriginalExtension();
+            $pathTor = $fileTor->storeAs('public/files', $filenameTor);
+            $pengajuan->update(['file_tor' => $filenameTor]);
+        }
+    
+        return redirect()->route('pengajuan.index');
     }
+    
+       
 
     /**
      * Remove the specified resource from storage.
