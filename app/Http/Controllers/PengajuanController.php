@@ -122,7 +122,11 @@ class PengajuanController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $detail = Pengajuan::with('users')->where('id',$id)->get();
+
+        return Inertia::render('Pengajuan/edit',[
+            'detail'=>$detail
+        ]);
     }
 
     /**
@@ -130,7 +134,7 @@ class PengajuanController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        return response()->json($request->all());
     }
 
     /**

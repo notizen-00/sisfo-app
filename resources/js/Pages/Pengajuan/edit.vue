@@ -1,7 +1,7 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
 import {ref,defineProps} from 'vue';
-import FormShow from '@/Fragments/Forms/Pengajuan/FormShow.vue';
+import FormEdit from '@/Fragments/Forms/Pengajuan/FormEdit.vue';
 import Toolbar from '@/Fragments/Card/Pengajuan/Toolbar.vue'; 
 
 const props = defineProps({
@@ -16,16 +16,16 @@ const detailPengajuan = ref(props.detail);
     <AppLayout title="Detail Kegiatan">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-              Detail Kegiatan 
+              Edit Data Pengajuan
             </h2>
         </template>
 
-        <Toolbar :id="detailPengajuan[0].id" />
+       
 
         <div class="py-12 md:w-full  sm:w-screen">
             <div class=" mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                    <FormShow :initialData="detailPengajuan"/>
+                    <FormEdit :initialData="detailPengajuan"/>
                 </div>
             </div>
         </div>

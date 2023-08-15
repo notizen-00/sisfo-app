@@ -18,7 +18,7 @@
     onMounted(() => {
         toast("Wow so easy !", {
           autoClose: 5000,
-          position: toast.POSITION.BOTTOM_RIGHT,
+          position: toast.POSITION.TOP_CENTER,
         }); 
     });
      const notify = () => {

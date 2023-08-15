@@ -1,10 +1,10 @@
 <template>
-    <Head title="Detail Kegiatan"></Head>
-   
-    <FormWizard ref="formWizard" @on-complete="onComplete" :step-size="computedStepSize"  
-        color="#094899" :start-index="0"  finish-button-text="Update" >
+    <Head title="Edit Pengajuan"></Head>
+    <form @submit.prevent="submitForm">
+    <FormWizard ref="formWizard"  :step-size="computedStepSize"   @on-loading="setLoading"
+    @on-validate="handleValidation" color="#094899" :start-index="0" :activate-all="isActive"  finish-button-text="Simpan" >
     
-      <TabContent title="Data Kegiatan" icon="fa fa-user">
+      <TabContent title="Data Kegiatan" icon="fa fa-user" :before-change="beforeTabFirstSwitch">
         
      
         <div class="w md:w-2/3 sm:w-full mx-auto">
@@ -39,8 +39,7 @@
                     v-model="form.kode_mak"
                     :class="inputClass('kode_mak')"
                     type="text"
-                    readonly
-                    class=" block w-full bg-slate-300 mx-auto md:w-full sm:w-full"
+                    class=" block w-full mx-auto md:w-full sm:w-full"
                     autocomplete="Kode Mak"
                     @focus="setFocused('kode_mak', true)"
                      @blur="setFocused('kode_mak', false)"
@@ -57,8 +56,7 @@
                     v-model="form.pjk"
                     :class="inputClass('pjk')"
                     type="text"
-                    readonly
-                    class=" block w-full bg-slate-300 mx-auto md:w-full sm:w-full"
+                    class=" block w-full mx-auto md:w-full sm:w-full"
                     autocomplete="pjk"
                     @focus="setFocused('pjk', true)"
                     @blur="setFocused('pjk', false)"
@@ -76,8 +74,7 @@
             v-model="form.nama_pengajuan"
             :class="inputClass('nama_pengajuan')"
             type="text"
-            readonly
-            class="mt-1 py-3 block bg-slate-300 w-full mx-auto md:w-2/3 sm:w-full"
+            class="mt-1 py-3 block w-full mx-auto md:w-2/3 sm:w-full"
             @focus="setFocused('nama_pengajuan', true)"
             @blur="setFocused('nama_pengajuan', false)"
             autocomplete="nama_pengajuan"
@@ -96,8 +93,7 @@
                 v-model="form.lokasi"
                 :class="inputClass('lokasi')"
                 type="text"
-                readonly
-                class=" block w-full bg-slate-300 mx-auto md:w-full sm:w-full"
+                class=" block w-full mx-auto md:w-full sm:w-full"
                  autocomplete="lokasi"
                 @focus="setFocused('lokasi', true)"
                  @blur="setFocused('lokasi', false)"
@@ -114,8 +110,7 @@
                 v-model="form.tanggal_pelaksanaan"
                 :class="inputClass('tanggal_pelaksanaan')"
                 type="date"
-                readonly
-                class=" block w-full bg-slate-300 mx-auto md:w-full sm:w-full"
+                class=" block w-full mx-auto md:w-full sm:w-full"
        
                 autocomplete="tanggal_pelaksanaan"
                 @focus="setFocused('tanggal_pelaksanaan', true)"
@@ -133,8 +128,7 @@
               v-model="form.tanggal_selesai"
               :class="inputClass('tanggal_selesai')"
               type="date"
-              readonly
-              class=" block w-full bg-slate-300 mx-auto md:w-full sm:w-full"
+              class=" block w-full mx-auto md:w-full sm:w-full"
               autocomplete="tanggal_selesai"
               @focus="setFocused('tanggal_selesai', true)"
               @blur="setFocused('tanggal_selesai', false)"
@@ -145,7 +139,7 @@
      
 
       </TabContent>
-      <TabContent title="Output Kegiatan" icon="fa fa-gear" >
+      <TabContent title="Output Kegiatan" icon="fa fa-gear" :before-change="beforeTabSecondSwitch">
         <div class="w md:w-2/3 sm:w-full mx-auto">
           <InputLabel
             :class="labelClass('output')"
@@ -156,8 +150,7 @@
             v-model="form.output"
             :class="inputClass('output')"
             type="text"
-            readonly
-            class="mt-1 py-2 bg-slate-300 block w-full mx-auto md:w-2/3 sm:w-full"
+            class="mt-1 py-2 block w-full mx-auto md:w-2/3 sm:w-full"
             @focus="setFocused('output', true)"
             @blur="setFocused('output', false)"
             autocomplete="output"
@@ -175,10 +168,9 @@
                    id="pagu"
                   v-model="form.pagu"
                   :class="inputClass('pagu')"
-                  type="text"
-                  class=" block bg-slate-300 w-full mx-auto md:w-full sm:w-full"
+                  type="number"
+                  class=" block w-full mx-auto md:w-full sm:w-full"
                   autocomplete="pagu"
-                  readonly
                   @focus="setFocused('pagu', true)"
                    @blur="setFocused('pagu', false)"
                   />
@@ -209,12 +201,22 @@
           value="IKU"
         />
 
+     
+        <!-- <select class="py-2 rounded-md w-full text-slate-500 text-center "
+          v-model="form.iku_id"
+          :class="inputClass('iku')"
+          @focus="setFocused('iku', true)"
+          @blur="setFocused('iku', false)"
+  
+        >
+            <option value="1">-- Silahkan Pilih Iku --</option>
+        </select> -->
         <Multiselect
       v-model="form.iku_id"
       placeholder="Pilih data iku "
       label="name"
       trackBy="name"
-      readonly
+      :multiple="true"
       :options="options"
       :searchable="true"
     >
@@ -234,14 +236,23 @@
   
       </TabContent>
       <TabContent title="File Kegiatan" icon="fa fa-file-import">
-        <div class="flex justify-center mt-5 w-full text-center  sm:w-full mx-auto">
+        <div class="flex justify-center mt-4 w-full md:w-2/3 sm:w-full mx-auto">
           <div class="mt-4 w-1/2 mr-5">
-            <InputLabel
-            :class="labelClass('file_tor')"
-               value="File TOR"
-               />
-            <iframe :src="pdfUrl" width="100%" height="600px" v-if="isShow"></iframe>
-            <button class="mx-auto mt-4 p-2 text-white rounded-md bg-blue-500 shadow-lg shadow-blue-500/50" v-if="!isShow">Download</button>
+              <InputLabel
+               :class="labelClass('file_tor')"
+                  value="File TOR"
+                  />
+                  <TextInput
+                   id="file_tor"
+                   @change="handleFileTorChange"
+                  :class="inputClass('file_tor')"
+                  type="file"
+                  class=" block w-full mx-auto md:w-full sm:w-full"
+                  autocomplete="File Tor"
+                  @focus="setFocused('file_tor', true)"
+                   @blur="setFocused('file_tor', false)"
+                  />
+                  <InputError class="mt-2" :message="form.errors.file_tor" />
           </div>
           <div class="mt-4 w-1/2">
               <InputLabel
@@ -253,7 +264,6 @@
                    @input="form.file_rab = $event.target.files[0]"
                   :class="inputClass('file_rab')"
                   type="file"
-                  readonly
                   class=" block w-full mx-auto md:w-full sm:w-full"
                   autocomplete="file_rab"
                   @focus="setFocused('file_rab', true)"
@@ -296,29 +306,27 @@
           <PrimaryButton
             v-else
            
-            type="button"
+            type="submit"
             :disabled="form.processing"
             :class="{ 'opacity-25': form.processing }"
             class="finish-button p-2 rounded-md"
             :style="props.fillButtonStyle"
-            @click.native="onComplete"
           >
-          
-            {{ isShow ? "Tutup File" : "Lihat File" }}
+            {{ props.isLastStep ? "Update" : "Next" }}
           </PrimaryButton>
         </div>
       </template>
       <div class="loader" v-if="loadingWizard"></div>
       
     </FormWizard>
-
+    </form>
 
 
     
   </template>
   
   <script setup>
-  import { computed,onMounted,ref,reactive,defineProps} from 'vue';
+  import { computed,onMounted,ref,reactive} from 'vue';
   import { FormWizard, TabContent } from "vue3-form-wizard";
   import "vue3-form-wizard/dist/style.css";
   import { Head, useForm,Link,router,usePage} from '@inertiajs/vue3';
@@ -328,47 +336,23 @@
   import PrimaryButton from '@/Components/PrimaryButton.vue';
   import Multiselect from '@vueform/multiselect'
   
-
-  const { props } = defineProps({ 
-  errors: Object,
-  iku:Array,
-  initialData:Array,
-  
- })
- const page = usePage();
-
   const value = ref([]);
-  const isActive = ref(true);
-  const formWizard = ref(null);
-  const isFocused = ref(false);
-    const detailData = ref(page.props.detail[0]);
-    const pdfUrl = `/storage/files/${detailData.value.file_tor}`;
-    const isShow = ref(false);
-    const focusedField = ref('');
-
-  const FormatRupiah = (number)=>{
-    return new Intl.NumberFormat("id-ID", {
-      style: "currency",
-      currency: "IDR"
-    }).format(number);
-  }
-onMounted(() => {
-  formWizard.value.activateAll();
-  
-});
  const  options = [
           { value: '1', name: 'Captain America'},
           { value: '2', name: 'Spiderman'},
           { value: '3', name: 'Iron Man' },
         ];
 
-
+const isFocused = ref(false);
+const focusedField = ref('');
+const isActive = ref(true);
+const formWizard = ref(null);
 const setFocused = (field, value) => {
   isFocused.value = value;
   focusedField.value = field;
 };
 const loadingWizard = ref(false);
-
+const page = usePage();
 const labelClass = (field) => {
   return {
     'text-center text-slate-600 capitalize ml-1': !isFocused.value || focusedField.value !== field,
@@ -383,7 +367,10 @@ const inputClass = (field) => {
     // ... kelas lain yang diperlukan ...
   };
 };
-
+onMounted(() => {
+  formWizard.value.activateAll();
+  
+});
 
   const computedStepSize = computed(() => {
   const screenWidth = window.innerWidth;
@@ -394,36 +381,93 @@ const inputClass = (field) => {
   }
 });
 
+const props = defineProps({ 
+  errors: Object,
+  iku:Array,
+  initialData:Array
+ })
 
- 
-const onComplete = () =>{
+ const DetailData = ref(props.initialData[0]);
 
-    isShow.value = !isShow.value;
+
+const setLoading = (value) => {
+    loadingWizard.value = value;
 }
 
+const handleValidation = (isValid,tabIndex) => {
+  console.log('Tab: '+tabIndex+ ' valid: '+isValid)
+};
 
- 
+const handleFileTorChange = (event) => {
+    const file = event.target.files[0];
+    form.file_tor = file; // Update file_tor pada objek form dengan file yang baru dipilih
+  };
 
   const form = useForm({
     // Menggunakan ref untuk mengubah input dan masih memuat data awal dari Vuex saat komponen dimuat
-    nama_pengusul: page.props.auth.user.name,
-    users_id:page.props.auth.user.id,
-    iku_id: '',
-    kode_mak: detailData.value.kode_mak,
-    pjk: detailData.value.pjk,
-    nama_pengajuan:detailData.value.nama_pengajuan,
-    lokasi:detailData.value.lokasi,
-    pagu: FormatRupiah(detailData.value.pagu),
-    output:detailData.value.output,
-    file_tor: '',
-    file_rab: '',
-    tanggal_pelaksanaan: detailData.value.tanggal_pelaksanaan,
-    tanggal_selesai: detailData.value.tanggal_selesai,
+    nama_pengusul: DetailData.value.users.name,
+    users_id:DetailData.value.users.id,
+    iku_id: DetailData.value.iku_id,
+    kode_mak: DetailData.value.kode_mak,
+    pjk: DetailData.value.pjk,
+    nama_pengajuan:DetailData.value.nama_pengajuan,
+    lokasi:DetailData.value.lokasi,
+    pagu:DetailData.value.pagu.toString(),
+    output:DetailData.value.output,
+    file_tor: DetailData.value.file_tor,
+    file_rab: DetailData.value.file_rab,
+    tanggal_pelaksanaan: DetailData.value.tanggal_pelaksanaan,
+    tanggal_selesai:DetailData.value.tanggal_selesai,
     jam_pelaksanaan:'',
 
 });
+const beforeTabFirstSwitch = () => {
 
+  const requiredFields = [ 'kode_mak', 'nama_pengajuan', 'lokasi', 'tanggal_pelaksanaan', 'tanggal_selesai'];
 
+  return new Promise((resolve, reject) => {
+       setTimeout(() => {
+          
+  for (const field of requiredFields) {
+    if (form.errors[field]) {
+      resolve(false) // Ada pesan error, tetap di tab pertama
+    }
+  }
+         resolve(true)
+       }, 1500)
+     })
+
+}
+
+const submitForm = (event) => {
+    event.preventDefault();
+    
+    form.transform(data => ({
+        _method:'put',
+        forceFormData: true,
+        ...data,
+    })).post(route('pengajuan.update', { id: DetailData.value.id }), {
+        onFinish: () => form.reset('password'),
+    });
+};
+
+const beforeTabSecondSwitch = () => {
+
+const requiredFields = ['output','pagu','iku'];
+
+return new Promise((resolve, reject) => {
+     setTimeout(() => {
+        
+for (const field of requiredFields) {
+  if (form.errors[field]) {
+    resolve(false) // Ada pesan error, tetap di tab pertama
+  }
+}
+       resolve(true)
+     }, 1000)
+   })
+
+}
 
   </script>
   <style src="@vueform/multiselect/themes/default.css"></style>
