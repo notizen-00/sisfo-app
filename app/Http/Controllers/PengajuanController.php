@@ -29,6 +29,12 @@ class PengajuanController extends Controller
                 'pengajuan'=>$pengajuan::with('users')->where('users_id',$pengusul_id)->get()
             ]);
         }
+        else if($role == 'pimpinan')
+        {
+            return Inertia::render('Pengajuan/index',[
+                'pengajuan'=>$pengajuan::with('users')->get()
+            ]);
+        }
       
     }
 
@@ -52,7 +58,8 @@ class PengajuanController extends Controller
     {
 
         $iku = serialize($request->iku_id);
-      
+        $role = auth()->user()->roles[0]->name;
+
         $validator = $request->validate([
             'users_id'=>'required|integer',
             'kode_mak' => 'required',
@@ -77,7 +84,8 @@ class PengajuanController extends Controller
     
         $data = $validator + [
             'status_pengajuan' => '1',
-            'iku' => $iku
+            'iku' => $iku,
+            'updated_by'=>$role
         ];
         unset($data['iku_id']);
         
@@ -141,6 +149,9 @@ class PengajuanController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        $role = auth()->user()->roles[0]->name;
+
         $iku = serialize($request->iku_id);
         $validator = $request->validate([
             'users_id' => 'required|integer',
@@ -164,7 +175,8 @@ class PengajuanController extends Controller
     
         $pengajuanData = $validator + [
             'status_pengajuan' => '1',
-            'iku'=>$iku
+            'iku'=>$iku,
+            'updated_by'=>$role
         ];
         unset($pengajuanData['iku_id']);
 

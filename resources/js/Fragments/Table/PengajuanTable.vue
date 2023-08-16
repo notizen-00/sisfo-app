@@ -27,7 +27,7 @@
     
       <detail-tooltip-pengajuan :href="route('pengajuan.show',{ id: data.value.id })">
         <template #title>
-         {{ data.value.nama_pengajuan}} 
+         <h1 class="text-blue-700 text-underline">{{ data.value.nama_pengajuan }} </h1>
         </template>
         <template #content>
           <h1><span class="fas fa-map-location-dot text-green-500"></span> {{ data.value.lokasi }}</h1>

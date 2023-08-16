@@ -30,7 +30,7 @@ const data = ref([]);
 
 onMounted(async () => {
   /* parse workbook */
-  const url = "http://sisfo-app.test/storage/files/file_rab_1691977428.xlsx";
+  const url = "https://sisfo-app.test/storage/files/file_rab_1691977428.xlsx";
   const file = await (await fetch(url)).arrayBuffer();
   const workbook = XLSX.read(file);
 

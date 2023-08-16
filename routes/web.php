@@ -24,6 +24,15 @@ Route::middleware([
     'verified',
 ])->group(function () {
     
+    Route::get('/', function () {
+        $jumlah_pagu = UnitKerja::gettotalpagu();
+
+        return Inertia::render('Dashboard',[
+            'jumlah_pagu' => $jumlah_pagu
+        ]);
+           
+    });
+
     Route::get('/dashboard', function () {
         $jumlah_pagu = UnitKerja::gettotalpagu();
 

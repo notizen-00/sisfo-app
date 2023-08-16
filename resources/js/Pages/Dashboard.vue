@@ -26,11 +26,17 @@ const jumlah_pagu = ref(formatRupiah(props.jumlah_pagu));
            
             </h2>
         </template>
-      
+        <div class="grid grid-cols-3 gap-4 bg-white mt-4">
+            <div class=" bg-cyan-400 shadow-lg ml-4 shadow-cyan-500/50 rounded-md text-center mt-10 text-white">01</div>
+            <div class=" bg-cyan-400 shadow-lg ml-4 shadow-cyan-500/50 rounded-md text-center mt-10 text-white">02</div>
+            <div class=" bg-cyan-400 shadow-lg ml-4 shadow-cyan-500/50 rounded-md text-center mt-10 text-white">03</div>
+            <div class="col-span-2 h-40 bg-cyan-400 shadow-lg ml-4 shadow-cyan-500/50 rounded-md text-center text-white"><h1 class="text-center mt-24">{{ jumlah_pagu }}</h1></div>
+            <div class="bg-blue-400">05</div>
+            <div class="bg-blue-500">06</div>
+            <div class="col-span-2 bg-red-600">07</div>
+          </div>
         <div class="py-12 w-full bg-white mt-4 ml-0">
-            <div class="">
-                {{ jumlah_pagu }}
-            </div>
+            
             <div class=" mx-auto sm:px-6 lg:px-8">
 
                 <Calendar />

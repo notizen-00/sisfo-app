@@ -30,7 +30,7 @@ onMounted(() => {
 
         <Toolbar :id="detailPengajuan[0].id" />
         <div class="">
-            <small>Pengajuan Ini Di Update Terakhir Kali pada tanggal <b><u>{{ detailPengajuan[0].updated_at }}</u></b></small>    
+            <small>Pengajuan Ini Di Update oleh <b><u>{{ detailPengajuan[0].updated_by }} </u></b> Terakhir Kali pada : <b><u>{{ detailPengajuan[0].updated_at }}</u></b></small>    
         </div>
 
         <div class="py-12 md:w-full  sm:w-screen">

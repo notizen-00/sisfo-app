@@ -71,13 +71,7 @@ const icons = {
                  Data Pengajuan
             </NavLinkSidebar>
          </li>
-
-         <li>
-            <NavLinkSidebar :href="route('revisi.index')" :active="route().current('revisi.index')">
-             <span class="h-6 w-8 text-slate-400"><font-awesome-icon :icon="icons.clipboard"/></span>
-                 Data Revisi
-            </NavLinkSidebar>
-         </li>
+         
          <li>
             
           <NavLinkSidebar :href="route('claim.index')" :active="route().current('claim.index')">

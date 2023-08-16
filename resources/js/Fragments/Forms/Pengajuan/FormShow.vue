@@ -235,29 +235,13 @@
             <iframe :src="pdfUrl" width="100%" height="600px" v-if="isShow"></iframe>
             <button class="mx-auto mt-4 p-2 text-white rounded-md bg-blue-500 shadow-lg shadow-blue-500/50" v-if="!isShow">Download</button>
           </div>
-          <div class="mt-4 w-1/2">
-              <InputLabel
-               :class="labelClass('file_rab')"
-                  value="File RAB"
-                  />
-                  <TextInput
-                   id="file_rab"
-                   @input="form.file_rab = $event.target.files[0]"
-                  :class="inputClass('file_rab')"
-                  type="file"
-                  readonly
-                  class=" block w-full mx-auto md:w-full sm:w-full"
-                  autocomplete="file_rab"
-                  @focus="setFocused('file_rab', true)"
-                  @blur="setFocused('file_rab', false)"
-                  
-                  />
-                  <InputError class="mt-2" :message="form.errors.file_rab" />
-                  <progress v-if="form.progress" :value="form.progress.percentage" max="100">
-                    {{ form.progress.percentage }}%
-                  </progress>
-                
-           
+          <div class="mt-4 w-1/2 h-fit">
+            <InputLabel
+            :class="labelClass('file_rab')"
+               value="File RAB"
+               />
+              <ShowExcel :src="form.file_rab" v-if="isShow" />
+              <button class="mx-auto mt-4 p-2 text-white rounded-md bg-blue-500 shadow-lg shadow-blue-500/50" v-if="!isShow">Download</button>
           </div>
       </div>
       </TabContent>
@@ -320,6 +304,7 @@
   import PrimaryButton from '@/Components/PrimaryButton.vue';
   import Multiselect from '@vueform/multiselect'
   import storeModel from '@/store/storeModel.js';
+  import ShowExcel from '@/Fragments/Excel/ShowExcel.vue';
   
 
   const { props } = defineProps({ 
@@ -424,7 +409,7 @@ const onComplete = () =>{
     pagu: FormatRupiah(detailData.value.pagu),
     output:detailData.value.output,
     file_tor: '',
-    file_rab: '',
+    file_rab: detailData.value.file_rab,
     tanggal_pelaksanaan: detailData.value.tanggal_pelaksanaan,
     tanggal_selesai: detailData.value.tanggal_selesai,
     jam_pelaksanaan:'',
