@@ -11,4 +11,8 @@ class UnitKerja extends Model
     protected $guarded = [];
     protected $table="unit_kerja";
     
+    public function scopeGetTotalPagu($query){
+
+            return $query->sum('pagu');
+    }
 }

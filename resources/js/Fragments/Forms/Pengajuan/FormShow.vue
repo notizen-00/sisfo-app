@@ -1,12 +1,12 @@
 <template>
-    <Head title="Detail Kegiatan"></Head>
+    <Head title="Detail Kegiatan "></Head>
    
     <FormWizard ref="formWizard" @on-complete="onComplete" :step-size="computedStepSize"  
         color="#094899" :start-index="0"  finish-button-text="Update" >
     
       <TabContent title="Data Kegiatan" icon="fa fa-user">
         
-     
+       
         <div class="w md:w-2/3 sm:w-full mx-auto">
             <InputLabel
               :class="labelClass('nama_pengusul')"
@@ -208,26 +208,18 @@
           :class="labelClass('iku')"
           value="IKU"
         />
-
         <Multiselect
-      v-model="form.iku_id"
-      placeholder="Pilih data iku "
-      label="name"
-      trackBy="name"
-      readonly
-      :options="options"
-      :searchable="true"
-    >
-      <template v-slot:singleLabel="{ value }">
-        <div class="multiselect-single-label">
-          <img height="26" style="margin: 0 6px 0 0;" :src="value.icon"> {{ value.name }}
-        </div>
-      </template>
-
-      <template v-slot:option="{ option }">
-        <img height="22" style="margin: 0 6px 0 0;" :src="option.icon">{{ option.name }}
-      </template>
-    </Multiselect>
+        v-model="isi"
+        mode="tags"
+        :object="true"
+        :close-on-select="false"
+        :searchable="false"
+        :resolve-on-load="false"
+        :create-option="false"
+         disabled
+        :options="options"
+      />
+       
         <InputError class="mt-2" :message="form.errors.iku_id" />
      </div>
      
@@ -327,6 +319,7 @@
   import InputLabel from '@/Components/InputLabel.vue';
   import PrimaryButton from '@/Components/PrimaryButton.vue';
   import Multiselect from '@vueform/multiselect'
+  import storeModel from '@/store/storeModel.js';
   
 
   const { props } = defineProps({ 
@@ -337,7 +330,12 @@
  })
  const page = usePage();
 
-  const value = ref([]);
+ const pengajuanId = ref(storeModel.getters.getPengajuanId);
+
+
+
+  const isi = ref([]);
+  const options = ref([]);
   const isActive = ref(true);
   const formWizard = ref(null);
   const isFocused = ref(false);
@@ -352,15 +350,25 @@
       currency: "IDR"
     }).format(number);
   }
-onMounted(() => {
+onMounted(async () => {
   formWizard.value.activateAll();
-  
+
+isi.value = detailData.value.iku.map(item => ({
+value: item.id,
+label: item.keterangan_iku
+
+}))
+
+options.value = detailData.value.iku.map(item => ({
+  value: item.id,
+label: item.keterangan_iku
+}))
+
+
 });
- const  options = [
-          { value: '1', name: 'Captain America'},
-          { value: '2', name: 'Spiderman'},
-          { value: '3', name: 'Iron Man' },
-        ];
+
+
+
 
 
 const setFocused = (field, value) => {

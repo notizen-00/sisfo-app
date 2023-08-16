@@ -6,14 +6,14 @@ import Modal from '@/Components/Modal.vue';
 import Toast from '@/Components/Toast.vue';
 import Calendar from '@/Fragments/Calendar.vue';
 import { ref ,defineProps} from 'vue';
+import { formatRupiah } from '@/Service/Helper.js';
 
 // Sesuaikan path dengan lokasi komponen UserTable 
 const props = defineProps({
-  users: Array, // Sesuaikan dengan tipe data yang diterima dari properti "users"
+  jumlah_pagu: Number,
 });
 
-const userData = ref(props.users);
-
+const jumlah_pagu = ref(formatRupiah(props.jumlah_pagu));
 
 
 </script>
@@ -28,6 +28,9 @@ const userData = ref(props.users);
         </template>
       
         <div class="py-12 w-full bg-white mt-4 ml-0">
+            <div class="">
+                {{ jumlah_pagu }}
+            </div>
             <div class=" mx-auto sm:px-6 lg:px-8">
 
                 <Calendar />

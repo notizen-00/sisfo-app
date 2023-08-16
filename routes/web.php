@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Models\UnitKerja;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,12 +24,13 @@ Route::middleware([
     'verified',
 ])->group(function () {
     
-    Route::get('/', function () {
-        return Inertia::render('Dashboard');
-    });
-
     Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
+        $jumlah_pagu = UnitKerja::gettotalpagu();
+
+        return Inertia::render('Dashboard',[
+            'jumlah_pagu' => $jumlah_pagu
+        ]);
+           
     })->name('dashboard');
 
     Route::resource('/pengajuan','App\Http\Controllers\PengajuanController');
@@ -38,6 +40,8 @@ Route::middleware([
     Route::resource('/user','App\Http\Controllers\UserController');
     Route::resource('/claim','App\Http\Controllers\ClaimController');
     Route::resource('/unitkerja','App\Http\Controllers\UnitKerjaController');
+    Route::resource('/Iku','App\Http\Controllers\IkuController');
+    Route::resource('/Rest','App\Http\Controllers\RestController');
 
 
 });

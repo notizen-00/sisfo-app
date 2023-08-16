@@ -1,15 +1,19 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import {ref,defineProps} from 'vue';
+import {ref,defineProps,onMounted} from 'vue';
 import FormEdit from '@/Fragments/Forms/Pengajuan/FormEdit.vue';
 import Toolbar from '@/Fragments/Card/Pengajuan/Toolbar.vue'; 
-
+import storeModel from '@/store/storeModel';
 const props = defineProps({
   detail: Array, // Sesuaikan dengan tipe data yang diterima dari properti "users"
 });
 
 const detailPengajuan = ref(props.detail); 
 
+onMounted(()=>{
+
+    storeModel.dispatch('fetchIku');
+});
 </script>
 
 <template>

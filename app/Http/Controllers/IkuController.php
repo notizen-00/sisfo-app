@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Iku;
 use Inertia\Inertia;
 class IkuController extends Controller
 {
@@ -11,7 +12,10 @@ class IkuController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Iku');
+        $data_iku = Iku::get();
+        return Inertia::render('Iku/index',[
+            'data_iku' => $data_iku
+        ]);
     }
 
     /**

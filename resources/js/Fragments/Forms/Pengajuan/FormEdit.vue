@@ -6,7 +6,6 @@
     
       <TabContent title="Data Kegiatan" icon="fa fa-user" :before-change="beforeTabFirstSwitch">
         
-     
         <div class="w md:w-2/3 sm:w-full mx-auto">
             <InputLabel
               :class="labelClass('nama_pengusul')"
@@ -195,41 +194,26 @@
               <InputError class="mt-2" :message="form.errors.limit_pagu" />
           </div>
       </div>
-      <div class="w md:w-2/3 sm:w-full mx-auto mt-4">
+      <div class="w md:w-2/3 sm:w-full h-80 mx-auto mt-4">
         <InputLabel
           :class="labelClass('iku')"
           value="IKU"
         />
-
-     
-        <!-- <select class="py-2 rounded-md w-full text-slate-500 text-center "
-          v-model="form.iku_id"
-          :class="inputClass('iku')"
-          @focus="setFocused('iku', true)"
-          @blur="setFocused('iku', false)"
-  
-        >
-            <option value="1">-- Silahkan Pilih Iku --</option>
-        </select> -->
+       
         <Multiselect
-      v-model="form.iku_id"
-      placeholder="Pilih data iku "
-      label="name"
-      trackBy="name"
-      :multiple="true"
-      :options="options"
-      :searchable="true"
-    >
-      <template v-slot:singleLabel="{ value }">
-        <div class="multiselect-single-label">
-          <img height="26" style="margin: 0 6px 0 0;" :src="value.icon"> {{ value.name }}
-        </div>
-      </template>
-
-      <template v-slot:option="{ option }">
-        <img height="22" style="margin: 0 6px 0 0;" :src="option.icon">{{ option.name }}
-      </template>
-    </Multiselect>
+        v-model="isi"
+        mode="tags"
+        :close-on-select="false"
+        :searchable="true"
+        :object="true"
+        :resolve-on-load="false"
+        :allow-absent="true"
+        :create-option="false"
+        @open="testMethod"
+        :options="options"
+      />
+      
+ 
         <InputError class="mt-2" :message="form.errors.iku_id" />
      </div>
      
@@ -283,7 +267,7 @@
       <template v-slot:footer="props">
         <div class="wizard-footer-left">
           <button
-            type="submit"
+            type="button"
             v-if="props.activeTabIndex > 0 && !props.isLastStep"
             :style="props.fillButtonStyle"
             @click.native="props.prevTab()"
@@ -294,7 +278,7 @@
         </div>
         <div class="wizard-footer-right">
           <button
-          type="submit"
+          type="button"
             v-if="!props.isLastStep"
             @click.native="props.nextTab()"
             class="wizard-button p-2 rounded-md"
@@ -326,7 +310,7 @@
   </template>
   
   <script setup>
-  import { computed,onMounted,ref,reactive} from 'vue';
+  import { computed,onMounted,ref,reactive,watch} from 'vue';
   import { FormWizard, TabContent } from "vue3-form-wizard";
   import "vue3-form-wizard/dist/style.css";
   import { Head, useForm,Link,router,usePage} from '@inertiajs/vue3';
@@ -335,16 +319,17 @@
   import InputLabel from '@/Components/InputLabel.vue';
   import PrimaryButton from '@/Components/PrimaryButton.vue';
   import Multiselect from '@vueform/multiselect'
+  import storeModel from '@/store/storeModel';
+
+
   
-  const value = ref([]);
- const  options = [
-          { value: '1', name: 'Captain America'},
-          { value: '2', name: 'Spiderman'},
-          { value: '3', name: 'Iron Man' },
-        ];
 
 const isFocused = ref(false);
 const focusedField = ref('');
+const isi = ref([]);
+const value = ref('');
+const dataIni = ref([]);
+const options = ref([]);
 const isActive = ref(true);
 const formWizard = ref(null);
 const setFocused = (field, value) => {
@@ -352,7 +337,16 @@ const setFocused = (field, value) => {
   focusedField.value = field;
 };
 const loadingWizard = ref(false);
-const page = usePage();
+
+const testMethod = () =>{
+  const IkuData = computed(() => storeModel.getters.getIkuData);
+options.value = IkuData.value.map(item => ({
+  value: item.id,
+  label: item.keterangan_iku
+}))
+  
+
+}
 const labelClass = (field) => {
   return {
     'text-center text-slate-600 capitalize ml-1': !isFocused.value || focusedField.value !== field,
@@ -367,10 +361,19 @@ const inputClass = (field) => {
     // ... kelas lain yang diperlukan ...
   };
 };
-onMounted(() => {
+onMounted(async () => {
   formWizard.value.activateAll();
-  
+
+isi.value = DetailData.value.iku.map(item => ({
+value: item.id
+}))
+
+
+
 });
+
+
+
 
   const computedStepSize = computed(() => {
   const screenWidth = window.innerWidth;
@@ -384,7 +387,8 @@ onMounted(() => {
 const props = defineProps({ 
   errors: Object,
   iku:Array,
-  initialData:Array
+  initialData:Array,
+
  })
 
  const DetailData = ref(props.initialData[0]);
@@ -420,6 +424,14 @@ const handleFileTorChange = (event) => {
     tanggal_selesai:DetailData.value.tanggal_selesai,
     jam_pelaksanaan:'',
 
+});
+
+watch(isi, (newValue) => {
+
+  
+  dataIni.value = newValue.map(item => item.value);
+  form.iku_id = dataIni.value;
+ 
 });
 const beforeTabFirstSwitch = () => {
 

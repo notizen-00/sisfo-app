@@ -3,6 +3,7 @@ import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 import store from '@/store/store.js';
+import storeModel from '@/store/storeModel.js';
 import Popper from "vue3-popper";
 import { formatRupiah } from '@/Service/Helper.js'; 
 import '@/app.css';
@@ -26,10 +27,10 @@ createInertiaApp({
         console.warn(msg, vm, trace);
     };
 
-
         VueApp.use(plugin)
         .use(ZiggyVue)
-        .use(store)
+        .use(store,'store')
+        .use(storeModel,'storeModel')
         .use(formatRupiah)
         .component("Popper",Popper)
         .mount(el);

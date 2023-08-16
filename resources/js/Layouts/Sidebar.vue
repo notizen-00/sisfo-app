@@ -121,7 +121,7 @@ const icons = {
               <li class="block px-4 py-2 text-xs text-gray-400">Master Data</li>
       
               <li>
-                <DropdownLink :href="route('profile.show')">Data IKU</DropdownLink>
+                <DropdownLink :href="route('Iku.index')"  :active="route().current('Iku.index')"> Data IKU</DropdownLink>
               </li>
       
               <li >

@@ -3,23 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Inertia\Inertia;
-use App\Models\User;
-use App\Models\UnitKerja;
-class UserController extends Controller
+use App\Models\Iku;
+
+class RestController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $users = User::with('roles')->get();
-        $unit_kerja = UnitKerja::get();
-        // dd(auth()->user()->roles->pluck('name')[0]);
-        return Inertia::render('User/index',[
-                'users'=>$users,
-                'unit_kerja'=>$unit_kerja
-        ]);
+        //
     }
 
     /**
@@ -41,13 +34,14 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $data)
     {
-        $data = User::find($id);
-
-        return Response()->json($data);
+        if ($data === 'iku') { // Gunakan operator identitas (===) untuk membandingkan nilai dan tipe data
+            $data_iku = Iku::get();
+            return Response()->json($data_iku);
+        }
     }
-
+    
     /**
      * Show the form for editing the specified resource.
      */
@@ -61,7 +55,7 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        dd($request->all());
+        //
     }
 
     /**

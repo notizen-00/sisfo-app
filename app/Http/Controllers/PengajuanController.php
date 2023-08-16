@@ -50,13 +50,16 @@ class PengajuanController extends Controller
      */
     public function store(Request $request)
     {
+
+        $iku = serialize($request->iku_id);
+      
         $validator = $request->validate([
             'users_id'=>'required|integer',
             'kode_mak' => 'required',
             'pjk' => 'required',
             'pagu'=>'required',
             'output'=>'required',
-            'iku_id'=>'required',
+            'iku_id'=>'required|array',
             'nama_pengajuan' => 'required',
             'lokasi' => 'required',
             'tanggal_pelaksanaan' => 'required|date',
@@ -67,13 +70,17 @@ class PengajuanController extends Controller
             [
                 'required' => 'Wajib di isi',    
                 'after_or_equal' => 'Harus setelah tanggal pelaksanaan',
-                'mimes' => 'Harus bertipe pdf,xlsx,csv'
+                'mimes' => 'Harus bertipe pdf,xlsx,csv',
+                'iku_id.array'=>'Format Tidak Valid'
             ]
         );
     
         $data = $validator + [
-            'status_pengajuan' => '1'
+            'status_pengajuan' => '1',
+            'iku' => $iku
         ];
+        unset($data['iku_id']);
+        
        $pengajuan = Pengajuan::create($data);
 
         if($pengajuan)
@@ -109,7 +116,7 @@ class PengajuanController extends Controller
     {
 
         $detail = Pengajuan::where('id',$id)->get();
-        
+
         return Inertia::render('Pengajuan/detail',[
             'detail'=>$detail
         ]);
@@ -134,13 +141,14 @@ class PengajuanController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $iku = serialize($request->iku_id);
         $validator = $request->validate([
             'users_id' => 'required|integer',
             'kode_mak' => 'required',
             'pjk' => 'required',
             'pagu' => 'required',
             'output' => 'required',
-            'iku_id' => 'required',
+            'iku_id' => 'required|array',
             'nama_pengajuan' => 'required',
             'lokasi' => 'required',
             'tanggal_pelaksanaan' => 'required|date',
@@ -155,9 +163,11 @@ class PengajuanController extends Controller
         ]);
     
         $pengajuanData = $validator + [
-            'status_pengajuan' => '1'
+            'status_pengajuan' => '1',
+            'iku'=>$iku
         ];
-    
+        unset($pengajuanData['iku_id']);
+
         $pengajuan = Pengajuan::find($id);
     
         if (!$pengajuan) {

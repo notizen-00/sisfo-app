@@ -197,41 +197,22 @@
               <InputError class="mt-2" :message="form.errors.limit_pagu" />
           </div>
       </div>
-      <div class="w md:w-2/3 sm:w-full mx-auto mt-4">
+      <div class="w md:w-2/3 sm:w-full h-80 mx-auto mt-4">
         <InputLabel
           :class="labelClass('iku')"
           value="IKU"
         />
 
-     
-        <!-- <select class="py-2 rounded-md w-full text-slate-500 text-center "
-          v-model="form.iku_id"
-          :class="inputClass('iku')"
-          @focus="setFocused('iku', true)"
-          @blur="setFocused('iku', false)"
-  
-        >
-            <option value="1">-- Silahkan Pilih Iku --</option>
-        </select> -->
         <Multiselect
-      v-model="form.iku_id"
-      placeholder="Pilih data iku "
-      label="name"
-      trackBy="name"
-      :multiple="true"
-      :options="options"
-      :searchable="true"
-    >
-      <template v-slot:singleLabel="{ value }">
-        <div class="multiselect-single-label">
-          <img height="26" style="margin: 0 6px 0 0;" :src="value.icon"> {{ value.name }}
-        </div>
-      </template>
+        v-model="value"
+        mode="tags"
+        :close-on-select="false"
+        :searchable="true"
+        :create-option="false"
+        :options="options"
+      />
+       
 
-      <template v-slot:option="{ option }">
-        <img height="22" style="margin: 0 6px 0 0;" :src="option.icon">{{ option.name }}
-      </template>
-    </Multiselect>
         <InputError class="mt-2" :message="form.errors.iku_id" />
      </div>
      
@@ -285,7 +266,7 @@
       <template v-slot:footer="props">
         <div class="wizard-footer-left">
           <button
-            type="submit"
+            type="button"
             v-if="props.activeTabIndex > 0 && !props.isLastStep"
             :style="props.fillButtonStyle"
             @click.native="props.prevTab()"
@@ -296,7 +277,7 @@
         </div>
         <div class="wizard-footer-right">
           <button
-          type="submit"
+          type="button"
             v-if="!props.isLastStep"
             @click.native="props.nextTab()"
             class="wizard-button p-2 rounded-md"
@@ -328,7 +309,7 @@
   </template>
   
   <script setup>
-  import { computed,onMounted,ref,reactive} from 'vue';
+  import { computed,onMounted,ref,reactive,watch} from 'vue';
   import { FormWizard, TabContent } from "vue3-form-wizard";
   import "vue3-form-wizard/dist/style.css";
   import { Head, useForm,Link,router,usePage} from '@inertiajs/vue3';
@@ -336,17 +317,14 @@
   import InputError from '@/Components/InputError.vue';
   import InputLabel from '@/Components/InputLabel.vue';
   import PrimaryButton from '@/Components/PrimaryButton.vue';
-  import Multiselect from '@vueform/multiselect'
+  import Multiselect from '@vueform/multiselect';
+  import storeModel from '@/store/storeModel';
   
-  const value = ref([]);
- const  options = [
-          { value: '1', name: 'Captain America'},
-          { value: '2', name: 'Spiderman'},
-          { value: '3', name: 'Iron Man' },
-        ];
-
+const value = ref();
+const options = ref([]);
 const isFocused = ref(false);
 const focusedField = ref('');
+const IkuData = computed(() => storeModel.getters.getIkuData);
 const setFocused = (field, value) => {
   isFocused.value = value;
   focusedField.value = field;
@@ -395,6 +373,30 @@ const handleValidation = (isValid,tabIndex) => {
 
 
 
+
+onMounted(async () => {
+  await storeModel.dispatch('fetchIku');
+  
+  // Setelah action selesai, data tersedia di IkuData.value
+  const DataA = IkuData.value;
+
+  options.value = DataA.map(item => ({
+  value: item.id,
+  label: item.keterangan_iku
+  
+  }))
+
+
+});
+
+
+
+
+
+
+
+
+
   const form = useForm({
     // Menggunakan ref untuk mengubah input dan masih memuat data awal dari Vuex saat komponen dimuat
     nama_pengusul: page.props.auth.user.name,
@@ -413,6 +415,11 @@ const handleValidation = (isValid,tabIndex) => {
     jam_pelaksanaan:'',
 
 });
+
+watch(value, (newValue) => {
+  form.iku_id = newValue;
+});
+
 const beforeTabFirstSwitch = () => {
 
   const requiredFields = [ 'kode_mak', 'nama_pengajuan', 'lokasi', 'tanggal_pelaksanaan', 'tanggal_selesai'];
@@ -425,6 +432,7 @@ const beforeTabFirstSwitch = () => {
       resolve(false) // Ada pesan error, tetap di tab pertama
     }
   }
+
          resolve(true)
        }, 1500)
      })
@@ -437,7 +445,7 @@ const requiredFields = ['output','pagu','iku'];
 
 return new Promise((resolve, reject) => {
      setTimeout(() => {
-        
+      
 for (const field of requiredFields) {
   if (form.errors[field]) {
     resolve(false) // Ada pesan error, tetap di tab pertama

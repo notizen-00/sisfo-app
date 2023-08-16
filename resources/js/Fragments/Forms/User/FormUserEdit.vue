@@ -33,6 +33,10 @@
                 <InputError class="mt-2" :message="form.errors.email" />
             </div>
 
+            <div class="mt-4">
+                
+            </div>
+
             <div class="flex items-center justify-end mt-4">
                 <PrimaryButton class="ml-4 p-2" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     Update
@@ -50,12 +54,16 @@ import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
+import Multiselect from '@vueform/multiselect';
 import { useStore } from 'vuex';
 
 const { props } = defineProps({
     canResetPassword: Boolean,
     status: String,
+    initialOptions:Array
 });
+
+
 
 const store = useStore();
 
