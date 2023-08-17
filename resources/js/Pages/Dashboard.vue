@@ -6,6 +6,7 @@ import Modal from '@/Components/Modal.vue';
 import Toast from '@/Components/Toast.vue';
 import Calendar from '@/Fragments/Calendar.vue';
 import { ref ,defineProps} from 'vue';
+import { usePage } from '@inertiajs/vue3';
 import { formatRupiah } from '@/Service/Helper.js';
 
 // Sesuaikan path dengan lokasi komponen UserTable 
@@ -14,8 +15,8 @@ const props = defineProps({
 });
 
 const jumlah_pagu = ref(formatRupiah(props.jumlah_pagu));
-
-
+const page = usePage();
+console.log(page.props.auth.roles)
 </script>
 
 <template>
@@ -23,10 +24,11 @@ const jumlah_pagu = ref(formatRupiah(props.jumlah_pagu));
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                Dashboard
+               {{ $page.props.auth.user.roles }}
            
             </h2>
         </template>
-        <div class="grid grid-cols-3 gap-4 bg-white mt-4">
+        <div class="grid grid-cols-3 gap-4 bg-white mt-4 " v-if="$page.props.auth.roles == 'admin' ">
             <div class=" bg-cyan-400 shadow-lg ml-4 shadow-cyan-500/50 rounded-md text-center mt-10 text-white">01</div>
             <div class=" bg-cyan-400 shadow-lg ml-4 shadow-cyan-500/50 rounded-md text-center mt-10 text-white">02</div>
             <div class=" bg-cyan-400 shadow-lg ml-4 shadow-cyan-500/50 rounded-md text-center mt-10 text-white">03</div>

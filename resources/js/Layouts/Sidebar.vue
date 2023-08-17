@@ -65,7 +65,7 @@ const icons = {
                 Dashboard
            </NavLinkSidebar>
         </li>
-        <li>
+        <li >
             <NavLinkSidebar :href="route('pengajuan.index')" :active="route().current('pengajuan.index')">
              <span class="h-6 w-8 text-slate-400"><font-awesome-icon :icon="icons.inbox"/></span>
                  Data Pengajuan
@@ -79,7 +79,7 @@ const icons = {
                Data Claim
           </NavLinkSidebar>
        </li>
-         <li>
+         <li v-if="$page.props.auth.roles == 'admin' ">
             
             <NavLinkSidebar :href="route('rekapitulasi.index')" :active="route().current('rekapitulasi.index')">
              <span class="h-6 w-8 text-slate-400"><font-awesome-icon :icon="icons.layergroup"/></span>
@@ -87,7 +87,7 @@ const icons = {
             </NavLinkSidebar>
           
          </li>
-         <li>
+         <li v-if="$page.props.auth.roles == 'admin' ">
             
             <NavLinkSidebar :href="route('user.index')" :active="route().current('user.index')">
              <span class="h-6 w-8 text-slate-400"><font-awesome-icon :icon="icons.usergear"/></span>
@@ -95,14 +95,14 @@ const icons = {
             </NavLinkSidebar>
          </li>
       
-         <li>
+         <li v-if="$page.props.auth.roles == 'admin' ">
             
             <NavLinkSidebar :href="route('pengaturan.index')" :active="route().current('pengaturan.index')">
              <span class="h-6 w-8 text-slate-400"><font-awesome-icon :icon="icons.cog"/></span>
                  Pengaturan Aplikasi
             </NavLinkSidebar>
          </li>
-         <li>
+         <li v-if="$page.props.auth.roles == 'admin' ">
           <Dropdown align="bottom" width="full">
             <template #trigger>
             
